@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/04 22:02:47 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/05 20:20:39 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include "ray.h"
 #include "vector3.h"
 #include <stdio.h>
+#include <math.h>
 
-#define SCREEN_WIDTH 1600
-#define SCREEN_HEIGHT 900
+#define SCREEN_WIDTH 711
+#define SCREEN_HEIGHT 400
 
 typedef struct	s_image {
 	void		*img;
@@ -42,7 +43,7 @@ t_camera camera_init(t_vector3 origin, double height, double focal_length)
 	t_camera cam;
 
 	cam.viewport_height = height;
-	cam.viewport_width = SCREEN_WIDTH / SCREEN_HEIGHT * height;
+	cam.viewport_width = ((double)SCREEN_WIDTH / (double)SCREEN_HEIGHT) * height;
 	cam.focal_length = focal_length;
 	cam.origin = origin;
 	cam.horizontal = vector3_init(cam.viewport_width, 0, 0);
@@ -68,17 +69,41 @@ unsigned int vtoc(t_vector3 v)
 	return (color);
 }
 
+double hit_sphere(t_vector3 center, double radius, t_ray r)
+{
+	t_vector3 oc;
+	double a;
+	double half_b;
+	double c;
+	double discriminant;
+	
+	oc = vector3_add(r.orig, vector3_not(center));
+	a = vector3_length_squared(r.dir);
+	half_b = vector3_dot(oc, r.dir);
+	c = vector3_length_squared(oc) - radius * radius;
+	discriminant = half_b * half_b - a * c;
+	if (discriminant < 0)
+		return (-1.0);
+	else 
+		return ((-half_b - sqrt(discriminant)) / a);
+}
 
 t_vector3 ray_color(t_ray r)
 {
 	t_vector3 dir;
 	double t;
 
+	t = hit_sphere(vector3_init(0, 0, -1), 0.5, r);
+	if (t > 0.0)
+	{
+		dir = vector3_norm(vector3_sbtr(ray_at(r, t), vector3_init(0, 0, -1)));
+		return vector3_mult(vector3_init(dir.x + 1, dir.y + 1, dir.z + 1), 0.5);
+	}
 	dir = vector3_norm(r.dir);
 	t = 0.5 * (dir.y + 1.0);
 	return (vector3_add(
-		vector3_mult(vector3_init(0.0, 0.0, 1.0), 1.0 - t),
-		vector3_mult(vector3_init(1.0, 0.0, 0.0), t)
+		vector3_mult(vector3_init(1.0, 1.0, 1.0), 1.0 - t),
+		vector3_mult(vector3_init(0.5, 0.7, 1.0), t)
 	));
 }
 
@@ -96,7 +121,7 @@ void fillimage(t_image *img)
 	{
 		while (j < SCREEN_HEIGHT)
 		{
-			dst = img->addr + j * img->line + i * (img->bpp / 8);
+			dst = img->addr + (SCREEN_HEIGHT - j - 1) * img->line + i * (img->bpp / 8);
 			*(unsigned int*)dst = vtoc(ray_color(ray_init(cam.origin, vector3_init(
 				cam.lower_left_corner.x + cam.horizontal.x * i / (SCREEN_WIDTH - 1) + cam.vertical.x * j / (SCREEN_HEIGHT - 1) - cam.origin.x,
 				cam.lower_left_corner.y + cam.horizontal.y * i / (SCREEN_WIDTH - 1) + cam.vertical.y * j / (SCREEN_HEIGHT - 1) - cam.origin.y,
