@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 21:33:41 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/05 21:53:35 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/05 22:03:01 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ t_hit_result	sphere_hit(void *obj, t_ray r, double t_min, double t_max)
 	t_vector3 oc;
 	double a;
 	double b;
-	double c;
-	double discriminant;
-	double sqrtd;
+	double disc;
 	double root;
 
 	result.ret = 0;
@@ -31,15 +29,14 @@ t_hit_result	sphere_hit(void *obj, t_ray r, double t_min, double t_max)
 	oc = vector3_sbtr(r.orig, sphere->center); 
 	a = vector3_length_squared(r.dir);
 	b = vector3_dot(oc, r.dir);
-	c = vector3_length_squared(oc) - sphere->radius * sphere->radius;
-	discriminant = b * b - a * c;
-	if (discriminant < 0)
+	disc = b * b - a * (vector3_length_squared(oc) - sphere->radius * sphere->radius);
+	if (disc < 0)
 		return (result);
-	sqrtd = sqrt(discriminant);
-	root = (-b - sqrtd) / a;
+	disc = sqrt(disc);
+	root = (-b - disc) / a;
 	if (root < t_min || t_max < root)
 	{
-		root = (-b + sqrtd) / a;
+		root = (-b + disc) / a;
 		if (root < t_min || t_max < root)
 			return (result);
 	}
