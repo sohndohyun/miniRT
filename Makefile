@@ -1,4 +1,4 @@
-NAME=miniRT
+NAME=miniRT.a
 LIBFT=./libft/libft.a
 SRCS=	vector3_util.c \
 		vector3_util1.c \
@@ -12,7 +12,7 @@ OBJS=${SRCS:.c=.o}
 all: ${NAME}
 bonus: all
 $(OBJS): $(SRCS)
-	gcc -Wall -Wextra -Werror -I. -I./libft -c $(SRCS)
+	gcc -Wall -Wextra -Werror -I. -I./libft/. -c $(SRCS)
 
 $(NAME): libftdo $(OBJS)
 	cp $(LIBFT) $(NAME)
