@@ -1,35 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hittable.h                                         :+:      :+:    :+:   */
+/*   hittable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/05 20:44:29 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/09 20:03:12 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/09 02:04:30 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/09 02:05:16 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HITTABLE_H
-# define HITTABLE_H
+#include "hittable.h"
 
-#include "ray.h"
-#include "libft.h"
-
-typedef struct		s_hit_result
+void	hittable_free(t_hittable *hittable)
 {
-	t_vector3		p;
-	t_vector3		norm;
-	double			t;
-	int				ret;
-}					t_hit_result;
-
-typedef struct		s_hittable
-{
-	void			*object;
-	t_hit_result	(*hit)(void *obj, t_ray r, double t_min, double t_max);
-}					t_hittable;
-
-void	hittable_free(t_hittable *hittable);
-
-#endif
+	free(hittable->object);
+	free(hittable);	
+}

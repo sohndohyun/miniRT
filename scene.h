@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hittable.h                                         :+:      :+:    :+:   */
+/*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/05 20:44:29 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/09 20:03:12 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/07 01:15:18 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/07 01:31:40 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HITTABLE_H
-# define HITTABLE_H
+#ifndef SCENE_H
+# define SCENE_H
 
-#include "ray.h"
-#include "libft.h"
+# include "libft/libft.h"
+# include "hittable.h"
 
-typedef struct		s_hit_result
-{
-	t_vector3		p;
-	t_vector3		norm;
-	double			t;
-	int				ret;
-}					t_hit_result;
+typedef t_list		*t_scene;
 
-typedef struct		s_hittable
-{
-	void			*object;
-	t_hit_result	(*hit)(void *obj, t_ray r, double t_min, double t_max);
-}					t_hittable;
-
-void	hittable_free(t_hittable *hittable);
+void scene_render(t_scene *scene);
+void scene_addobject(t_scene *scene, t_hittable *object);
+void scene_free(t_scene *scene);
 
 #endif
