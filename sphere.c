@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 21:33:41 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/05 22:03:01 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/12 02:43:15 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "sphere.h"
 #include <stdlib.h>
 
-t_hit_result	sphere_hit(void *obj, t_ray r, double t_min, double t_max)
+t_result	sphere_hit(void *obj, t_ray r, double t_min, double t_max)
 {
 	t_sphere *sphere;
-	t_hit_result result;
+	t_result result;
 	t_vector3 oc;
 	double a;
 	double b;
@@ -43,7 +43,8 @@ t_hit_result	sphere_hit(void *obj, t_ray r, double t_min, double t_max)
 	
 	result.t = root;
 	result.p = ray_at(r, root);
-	result.norm = vector3_div(vector3_sbtr(result.p, sphere->center), sphere->radius);
+	oc = vector3_div(vector3_sbtr(result.p, sphere->center), sphere->radius);
+	result_set_face_normal(&result, r, oc);
 	result.ret = 1;
 	return (result);
 }
