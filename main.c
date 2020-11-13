@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/14 03:10:47 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/14 03:50:26 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "sphere.h"
 #include "scene.h"
 
-#define SCREEN_WIDTH 1920
-#define SCREEN_HEIGHT 1080
+#define SCREEN_WIDTH 1600
+#define SCREEN_HEIGHT 900
 
 typedef struct	s_image {
 	void		*img;
@@ -146,8 +146,10 @@ int main(void)
 	img.img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line, &img.endian);
 
-	scene_add(&scene, sphere_alloc(vector3_init(0.0, 0.0, -1.0), 0.5));
-//	scene_add(&scene, sphere_alloc(vector3_init(0.0, -100.5, -1.0), 100.0));
+	scene_add(&scene, sphere_alloc(vector3_init(0, 0, -1), 0.25));
+	scene_add(&scene, sphere_alloc(vector3_init(1, 0, -1), 0.25));
+	scene_add(&scene, sphere_alloc(vector3_init(-1, 0, -1), 0.25));
+	scene_add(&scene, sphere_alloc(vector3_init(0.0, -100.5, -1.0), 100.0));
 	fillimage(&img, &scene);
 	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
 	mlx_loop(mlx);

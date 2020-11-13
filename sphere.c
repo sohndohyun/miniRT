@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 21:33:41 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/14 03:07:09 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/14 03:45:35 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct	s_fvalue
 
 static void calculate(t_sphere *sphere, t_ray r, t_fvalue *val)
 {
-	val->oc = vector3_sbtr(r.orig, sphere->center); 
+	val->oc = vector3_add(r.orig, vector3_not(sphere->center));
 	val->a = vector3_length_squared(r.dir);
 	val->half_b = vector3_dot(val->oc, r.dir);
 	val->c = vector3_length_squared(val->oc) - (sphere->radius * sphere->radius);
@@ -64,16 +64,16 @@ t_result	sphere_hit(void *obj, t_ray r, double t_min, double t_max)
 t_hittable		*sphere_alloc(t_vector3 center, double radius)
 {
 	t_sphere *sphere;
-	t_hittable *hitable;
+	t_hittable *hit;
 
 	sphere = malloc(sizeof(t_sphere));
 	sphere->center = center;
 	sphere->radius = radius;
-	hitable = malloc(sizeof(t_hittable));
-	hitable->hit = sphere_hit;
-	hitable->object = (void*)sphere;
-	hitable->del = sphere_free;
-	return (hitable);
+	hit = malloc(sizeof(t_hittable));
+	hit->hit = sphere_hit;
+	hit->object = sphere;
+	hit->del = sphere_free;
+	return (hit);
 }
 
 void			sphere_free(void *sphere)

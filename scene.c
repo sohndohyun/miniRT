@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 01:31:58 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/14 02:54:41 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/14 03:46:40 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_result scene_hit(t_scene *scene, t_ray r, double t_min, double t_max)
 	while (it != NULL)
 	{
 		obj = it->content;
-		current = obj->hit(obj, r, t_min, closet);
+		current = obj->hit(obj->object, r, t_min, closet);
 		if (current.ret == 1)
 		{
 			closet = current.t;
