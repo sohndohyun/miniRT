@@ -6,18 +6,16 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/06 15:29:14 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/14 03:10:47 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-#include "ray.h"
-#include "vector3.h"
-#include <stdio.h>
-#include <math.h>
+#include "minirt.h"
+#include "sphere.h"
+#include "scene.h"
 
-#define SCREEN_WIDTH 711
-#define SCREEN_HEIGHT 400
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
 
 typedef struct	s_image {
 	void		*img;
@@ -46,7 +44,7 @@ t_camera camera_init(t_vector3 origin, double height, double focal_length)
 	cam.viewport_width = ((double)SCREEN_WIDTH / (double)SCREEN_HEIGHT) * height;
 	cam.focal_length = focal_length;
 	cam.origin = origin;
-	cam.horizontal = vector3_init(cam.viewport_width, 0, 0);
+	cam.horizontal = vector3_init(cam.viewport_width, 0.0, 0.0);
 	cam.vertical = vector3_init(0, height, 0);
 	cam.lower_left_corner = vector3_init(
 		origin.x - cam.viewport_width / 2,
@@ -88,16 +86,16 @@ double hit_sphere(t_vector3 center, double radius, t_ray r)
 		return ((-half_b - sqrt(discriminant)) / a);
 }
 
-t_vector3 ray_color(t_ray r)
+t_vector3 ray_color(t_ray r, t_scene *scene)
 {
 	t_vector3 dir;
 	double t;
+	t_result result;
 
-	t = hit_sphere(vector3_init(0, 0, -1), 0.5, r);
-	if (t > 0.0)
+	result = scene_hit(scene, r, 0, __DBL_MAX__);
+	if (result.ret)
 	{
-		dir = vector3_norm(vector3_sbtr(ray_at(r, t), vector3_init(0, 0, -1)));
-		return vector3_mult(vector3_init(dir.x + 1, dir.y + 1, dir.z + 1), 0.5);
+		return vector3_mult(vector3_add(result.norm, vector3_init(1, 1, 1)), 0.5);
 	}
 	dir = vector3_norm(r.dir);
 	t = 0.5 * (dir.y + 1.0);
@@ -107,14 +105,14 @@ t_vector3 ray_color(t_ray r)
 	));
 }
 
-void fillimage(t_image *img)
+void fillimage(t_image *img, t_scene *scene)
 {
 	int i;
 	int j;
 	char* dst;
 	t_camera cam;
 
-	cam = camera_init(vector3_init(0, 0, 0), 2.0, 1.0);
+	cam = camera_init(vector3_init(0.0, 0.0, 0.0), 2.0, 1.0);
 	i = 0;
 	j = 0;
 	while (i < SCREEN_WIDTH)
@@ -126,7 +124,8 @@ void fillimage(t_image *img)
 				cam.lower_left_corner.x + cam.horizontal.x * i / (SCREEN_WIDTH - 1) + cam.vertical.x * j / (SCREEN_HEIGHT - 1) - cam.origin.x,
 				cam.lower_left_corner.y + cam.horizontal.y * i / (SCREEN_WIDTH - 1) + cam.vertical.y * j / (SCREEN_HEIGHT - 1) - cam.origin.y,
 				cam.lower_left_corner.z + cam.horizontal.z * i / (SCREEN_WIDTH - 1) + cam.vertical.z * j / (SCREEN_HEIGHT - 1) - cam.origin.z
-			))));
+			)), scene
+			));
 			j++;
 		}
 		i++;
@@ -139,13 +138,19 @@ int main(void)
 	void *mlx;
 	void *window;
 	t_image img;
+	t_scene scene;
 
+	scene = NULL;
 	mlx = mlx_init();
 	window = mlx_new_window(mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "miniRT");
 	img.img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line, &img.endian);
-	fillimage(&img);
+
+	scene_add(&scene, sphere_alloc(vector3_init(0.0, 0.0, -1.0), 0.5));
+//	scene_add(&scene, sphere_alloc(vector3_init(0.0, -100.5, -1.0), 100.0));
+	fillimage(&img, &scene);
 	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
 	mlx_loop(mlx);
+	scene_free(&scene);
 	return (0);
 }

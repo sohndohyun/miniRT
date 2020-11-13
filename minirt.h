@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/05 21:16:34 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/14 02:32:55 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/14 00:17:10 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/14 02:18:23 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#ifndef MINIRT_H
+# define MINIRT_H
 
+# include <math.h>
+# include <limits.h>
+# include <stdlib.h>
+# include "ray.h"
+# include "vector3.h"
+# include "mlx.h"
+# include "libft/libft.h"
 # include "hittable.h"
 
-typedef struct	s_sphere
-{
-	t_vector3	center;
-	double		radius;
-}				t_sphere;
+# define PI 3.1415926535898
 
-t_result		sphere_hit(void *obj, t_ray r, double t_min, double t_max);
-t_hittable		*sphere_alloc(t_vector3 center, double radius);
-void			sphere_free(void *sphere);
+double dtor(double d);
 
 #endif

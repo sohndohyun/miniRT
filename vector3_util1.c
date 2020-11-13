@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector3_util1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 16:13:35 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/04 16:42:58 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/14 03:23:52 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,8 @@ t_vector3		vector3_cross(t_vector3 v1, t_vector3 v2)
 
 t_vector3		vector3_norm(t_vector3 v)
 {
-	return (vector3_div(v, vector3_length(v)));
+	double len;
+
+	len = vector3_length(v);
+	return (vector3_init(v.x / len, v.y / len, v.z / len));
 }

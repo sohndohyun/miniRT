@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector3_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 16:09:46 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/04 16:15:31 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/14 03:18:01 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ t_vector3		vector3_mult(t_vector3 v, double d)
 
 t_vector3		vector3_div(t_vector3 v, double d)
 {
-	return (vector3_mult(v, 1 / d));
+	return (vector3_init(v.x / d, v.y / d, v.z / d));
 }

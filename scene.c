@@ -6,28 +6,38 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 01:31:58 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/11 16:30:42 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/14 02:54:41 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
 
-void scene_render(t_scene *scene)
+t_result scene_hit(t_scene *scene, t_ray r, double t_min, double t_max)
 {
-	t_scene it;
+	t_list *it;
 	t_hittable *obj;
+	t_result result;
+	t_result current;
+	double closet;
 
-	it = *scene;
-	while (it != 0)
+	result.ret = 0;
+	closet = t_max;
+	it = (t_list*)*scene;
+	while (it != NULL)
 	{
-		it->content;
 		obj = it->content;
-		
+		current = obj->hit(obj, r, t_min, closet);
+		if (current.ret == 1)
+		{
+			closet = current.t;
+			result = current;
+		}
 		it = it->next;
 	}
+	return (result);
 }
 
-void scene_addobject(t_scene *scene, t_hittable *object)
+void scene_add(t_scene *scene, t_hittable *object)
 {
 	ft_lstadd_back(scene, ft_lstnew(object));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector3_util2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 19:14:05 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/05 19:15:47 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/14 03:20:28 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 t_vector3		vector3_sbtr(t_vector3 v, t_vector3 v2)
 {
-	return vector3_add(v, vector3_not(v2));
+	return (vector3_init(v.x - v2.x, v.y - v2.y, v.z - v2.z));
 }

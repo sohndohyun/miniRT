@@ -1,11 +1,14 @@
-NAME=miniRT.a
+NAME=miniRT
+MINILIB=miniLIB
 LIBFT=./libft/libft.a
 SRCS=	vector3_util.c \
 		vector3_util1.c \
 		vector3_util2.c \
 		sphere.c \
-		ray.c
-
+		ray.c \
+		hittable.c \
+		scene.c \
+		minirt.c
 
 OBJS=${SRCS:.c=.o}
 
@@ -15,8 +18,8 @@ $(OBJS): $(SRCS)
 	gcc -Wall -Wextra -Werror -I. -I./libft/. -c $(SRCS)
 
 $(NAME): libftdo $(OBJS)
-	cp $(LIBFT) $(NAME)
-	ar rc $(NAME) $(OBJS)
+	cp $(LIBFT) $(MINILIB)
+	gcc -Wall -Wextra -Werror -I. $(MINILIB) $(OBJS) main.c libmlx.dylib -o $(NAME)
 
 libftdo:
 	$(MAKE) -C ./libft bonus
@@ -24,10 +27,11 @@ libftdo:
 clean:
 	$(MAKE) -C ./libft clean
 	rm -f $(OBJS)
-
+	rm -f $(MINILIB)
 fclean:
 	$(MAKE) -C ./libft fclean
 	rm -f $(OBJS)
 	rm -f $(NAME)
+	rm -f $(MINILIB)
 re: fclean all
 .PHONY: all clean fclean re libftdo bonus
