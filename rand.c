@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   rand.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/14 00:22:02 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/15 04:48:02 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/15 04:20:29 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/15 04:26:32 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "stdlib.h"
 
-double random_double()
+unsigned int g_next = 1;
+
+void ft_srand(unsigned int seed)
 {
-	return ((double)ft_rand() / (RAND_MAX + 1.0));
+	g_next = seed;
 }
 
-double random_range(double min, double max)
+int ft_rand()
 {
-	return (min + (max - min) * random_double());
-}
-
-double dtor(double d)
-{
-	return (d * PI / 180.0);
-}
-
-double clamp(double x, double min, double max)
-{
-	if (x < min) 
-		return (min);
-	if (x > max) 
-		return (max);
-	return (x);
+	return ((g_next = g_next * 1103515245 + 12345) % ((unsigned int)RAND_MAX + 1));
 }

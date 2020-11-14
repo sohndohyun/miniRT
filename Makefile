@@ -8,7 +8,9 @@ SRCS=	vector3_util.c \
 		ray.c \
 		hittable.c \
 		scene.c \
-		minirt.c
+		minirt.c \
+		camera.c \
+		rand.c 
 
 OBJS=${SRCS:.c=.o}
 
