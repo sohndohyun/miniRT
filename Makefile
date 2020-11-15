@@ -4,6 +4,7 @@ LIBFT=./libft/libft.a
 SRCS=	vector3_util.c \
 		vector3_util1.c \
 		vector3_util2.c \
+		vector3_util3.c \
 		sphere.c \
 		ray.c \
 		hittable.c \

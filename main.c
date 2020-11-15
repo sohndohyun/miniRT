@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/16 01:58:32 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/16 02:20:15 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include "scene.h"
 #include "camera.h"
 
-#define SCREEN_WIDTH 1600
-#define SCREEN_HEIGHT 900
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 450
 #define SAMPLE_PER_PIXEL 100
-#define MAX_DEPTH 20
+#define MAX_DEPTH 50
 
 typedef struct	s_image {
 	void		*img;
@@ -56,7 +56,7 @@ t_vector3 ray_color(t_ray r, t_scene *scene, int depth)
 	result = scene_hit(scene, r, 0.001, __DBL_MAX__);
 	if (result.ret)
 	{
-		dir = vector3_add(vector3_add(result.p, result.norm),vector3_random_unit_sphere());
+		dir = vector3_add(result.p, vector3_random_hemisphere(result.norm));
 		return vector3_mult(ray_color(ray_init(result.p, vector3_sbtr(dir, result.p)), scene, depth - 1), 0.5);
 	}
 	dir = vector3_norm(r.dir);

@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 20:20:00 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/16 00:51:31 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/16 02:15:50 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ t_vector3		vector3_sbtr(t_vector3 v, t_vector3 v2);
 t_vector3		vector3_random();
 t_vector3		vector3_random_range(double min, double max);
 t_vector3		vector3_random_unit_sphere();
+t_vector3		vector3_norm_random();
+t_vector3		vector3_random_hemisphere(t_vector3 norm);
 
 #endif

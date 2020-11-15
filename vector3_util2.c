@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 19:14:05 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/16 01:25:13 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/16 02:14:36 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,9 @@ t_vector3		vector3_random_unit_sphere()
 		return (temp);		
 	}
 	return (temp);
+}
+
+t_vector3		vector3_norm_random()
+{
+	return (vector3_norm(vector3_random_unit_sphere()));
 }
