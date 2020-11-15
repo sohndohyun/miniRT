@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/16 02:20:15 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/16 02:47:28 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,10 @@ int main(void)
 	img.img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line, &img.endian);
 
-	scene_add(&scene, sphere_alloc(vector3_init(0, 0, -1), 0.5));
-	scene_add(&scene, sphere_alloc(vector3_init(0.0, -100.5, -1.0), 100.0));
+	scene_add(&scene, sphere_alloc(vector3_init(0, 0, -10.0), 0.5));
+	scene_add(&scene, sphere_alloc(vector3_init(1, 0, -10.0), 0.5));
+	scene_add(&scene, sphere_alloc(vector3_init(-1, 0, -10.0), 0.5));
+	scene_add(&scene, sphere_alloc(vector3_init(0.0, -100.5, -10.0), 100.0));
 	camera_setting(&cam, (double)SCREEN_WIDTH / (double)SCREEN_HEIGHT, 2.0, 1.0);
 	fillimage(&img, &scene, &cam);
 	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
