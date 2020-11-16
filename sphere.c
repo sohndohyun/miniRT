@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 21:33:41 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/14 03:45:35 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/16 22:03:36 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_result	sphere_hit(void *obj, t_ray r, double t_min, double t_max)
 	return (result);
 }
 
-t_hittable		*sphere_alloc(t_vector3 center, double radius)
+t_hittable		*sphere_alloc(t_vector3 center, double radius, t_material *mat)
 {
 	t_sphere *sphere;
 	t_hittable *hit;
@@ -69,6 +69,7 @@ t_hittable		*sphere_alloc(t_vector3 center, double radius)
 	sphere = malloc(sizeof(t_sphere));
 	sphere->center = center;
 	sphere->radius = radius;
+	sphere->mat = mat;
 	hit = malloc(sizeof(t_hittable));
 	hit->hit = sphere_hit;
 	hit->object = sphere;
@@ -81,5 +82,6 @@ void			sphere_free(void *sphere)
 	t_sphere *temp;
 
 	temp = sphere;
+	temp->mat->del(temp->mat->obj);
 	free(temp);
 }

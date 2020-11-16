@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector3_util3.c                                    :+:      :+:    :+:   */
+/*   material.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 02:15:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/16 22:17:41 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/16 15:23:41 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/16 22:14:34 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector3.h"
-#include <math.h>
+#ifndef MATERIAL_H
+# define MATERIAL_H
 
-t_vector3		vector3_random_hemisphere(t_vector3 norm)
+# include "minirt.h"
+
+typedef struct	s_material
 {
-	t_vector3 temp;
+	void		*obj;
+	t_ray		(*scatter)(void *obj, t_ray rin, t_result *result, t_vector3 *color);
+	void		(*del)(void *obj);
+}				t_material;
 
-	temp = vector3_random_unit_sphere();
-	if (vector3_dot(temp, norm) > 0.0)
-		return (temp);
-	return (vector3_not(temp));
-}
-
-int				vector3_near_zero(t_vector3 vec3)
-{
-	const double s = 1e-8;
-
-	return (fabs(vec3.x) < s && fabs(vec3.y) < s && fabs(vec3.y) < s);
-}
+#endif

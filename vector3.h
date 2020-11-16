@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector3.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 20:20:00 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/16 02:15:50 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/16 22:18:10 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ t_vector3		vector3_random_range(double min, double max);
 t_vector3		vector3_random_unit_sphere();
 t_vector3		vector3_norm_random();
 t_vector3		vector3_random_hemisphere(t_vector3 norm);
+int				vector3_near_zero(t_vector3 vec3);
 
 #endif

@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector3_util3.c                                    :+:      :+:    :+:   */
+/*   lambertian.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 02:15:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/16 22:17:41 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/16 17:38:48 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/16 22:08:50 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector3.h"
-#include <math.h>
+#ifndef LAMBERTIAN_H
+# define LAMBERTIAN_h
 
-t_vector3		vector3_random_hemisphere(t_vector3 norm)
+# include "minirt.h"
+
+typedef struct	s_lambertian
 {
-	t_vector3 temp;
+	t_vector3	albedo;
+}				t_lambertian;
 
-	temp = vector3_random_unit_sphere();
-	if (vector3_dot(temp, norm) > 0.0)
-		return (temp);
-	return (vector3_not(temp));
-}
+t_ray			*lambertian_scatter(void *obj, t_ray rin, t_result *result, t_vector3 *color);
+t_material		*lambertian_alloc(t_vector3 albedo);
+void			lambertian_free(void *lambertian);
 
-int				vector3_near_zero(t_vector3 vec3)
-{
-	const double s = 1e-8;
-
-	return (fabs(vec3.x) < s && fabs(vec3.y) < s && fabs(vec3.y) < s);
-}
+#endif

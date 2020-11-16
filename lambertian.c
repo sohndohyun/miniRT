@@ -1,0 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lambertian.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/16 21:56:06 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/16 22:19:40 by dsohn            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lambertian.h"
+
+t_ray			lambertian_scatter(void *obj, t_ray rin, t_result *result, t_vector3 *color)
+{
+	t_material *mat;
+	t_ray scattered;
+	t_lambertian *lam;
+	t_vector3 scat_dir;
+
+	mat = obj;
+	lam = mat->obj;
+	result->ret = 1;
+	scat_dir = vector3_add(result->norm, vector3_norm_random());
+	if (vector3_near_zero(scat_dir))
+		scat_dir = result->norm;
+	scattered = ray_init(result->p, scat_dir);
+	(*color) = lam->albedo;
+	return (scattered);
+}
+
+t_material		*lambertian_alloc(t_vector3 albedo)
+{
+	t_lambertian *lam;
+	t_material *mat;
+
+	lam = malloc(sizeof(t_lambertian));
+	lam->albedo = albedo;
+	mat = malloc(sizeof(t_material));
+	mat->obj = (void*)lam;
+	mat->scatter = lambertian_scatter;
+	mat->del = lambertian_free;
+	return (mat);
+}
+
+void			lambertian_free(void *lam)
+{
+	t_lambertian *temp;
+
+	temp = lam;
+	free(temp);
+}

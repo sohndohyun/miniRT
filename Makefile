@@ -11,7 +11,8 @@ SRCS=	vector3_util.c \
 		scene.c \
 		minirt.c \
 		camera.c \
-		rand.c 
+		rand.c \
+		lambertian.c
 
 OBJS=${SRCS:.c=.o}
 

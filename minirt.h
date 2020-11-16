@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 00:17:10 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/15 04:27:44 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/16 21:54:53 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "mlx.h"
 # include "libft/libft.h"
 # include "hittable.h"
+# include "material.h"
 
 # define PI 3.1415926535898
 
