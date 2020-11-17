@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/17 17:51:18 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/17 22:18:41 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "scene.h"
 #include "camera.h"
 #include "lambertian.h"
+#include "metal.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 450
@@ -116,10 +117,10 @@ int main(void)
 	img.img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line, &img.endian);
 
-	scene_add(&scene, sphere_alloc(vector3_init(0, 0, -2.0), 0.5, lambertian_alloc(vector3_init(1, 0, 0))));
-	scene_add(&scene, sphere_alloc(vector3_init(1, 0, -2.0), 0.5, lambertian_alloc(vector3_init(0, 1, 0))));
-	scene_add(&scene, sphere_alloc(vector3_init(-1, 0, -2.0), 0.5, lambertian_alloc(vector3_init(0, 0, 1))));
-	scene_add(&scene, sphere_alloc(vector3_init(0.0, -100.5, -2.0), 100.0, lambertian_alloc(vector3_init(0.5, 0.5, 0.5))));
+	scene_add(&scene, sphere_alloc(vector3_init(0, 0, -2.0), 0.5, lambertian_alloc(vector3_init(0.7, 0.3, 0.3))));
+	scene_add(&scene, sphere_alloc(vector3_init(1, 0, -2.0), 0.5, metal_alloc(vector3_init(0.8, 0.8, 0.8))));
+	scene_add(&scene, sphere_alloc(vector3_init(-1, 0, -2.0), 0.5, metal_alloc(vector3_init(0.8, 0.6, 0.2))));
+	scene_add(&scene, sphere_alloc(vector3_init(0.0, -100.5, -2.0), 100.0, lambertian_alloc(vector3_init(0.8, 0.8, 0))));
 	camera_setting(&cam, (double)SCREEN_WIDTH / (double)SCREEN_HEIGHT, 2.0, 1.0);
 	fillimage(&img, &scene, &cam);
 	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
