@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   metal.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/05 21:16:34 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/17 16:30:19 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/17 15:57:14 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/17 15:58:38 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#ifndef METAL_H
+# define METAL_H
 
-# include "hittable.h"
-# include "material.h"
 
-typedef struct	s_sphere
-{
-	t_vector3	center;
-	double		radius;
-	t_material	*mat;
-}				t_sphere;
 
-t_result		sphere_hit(void *obj, t_ray r, double t_min, double t_max);
-t_hittable		*sphere_alloc(t_vector3 center, double radius, t_material *mat);
-void			sphere_free(void *sphere);
-
-#endif
+#endif METAL_H

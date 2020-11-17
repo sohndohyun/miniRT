@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:23:41 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/16 22:14:34 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/17 16:02:31 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MATERIAL_H
 
 # include "minirt.h"
+
+typedef struct s_result t_result;
 
 typedef struct	s_material
 {

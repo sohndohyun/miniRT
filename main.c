@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/16 02:47:28 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/17 17:51:18 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "sphere.h"
 #include "scene.h"
 #include "camera.h"
+#include "lambertian.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 450
@@ -47,20 +48,23 @@ unsigned int vtoc(t_vector3 v, int samples_per_pixel)
 
 t_vector3 ray_color(t_ray r, t_scene *scene, int depth)
 {
-	t_vector3 dir;
+	t_vector3 temp;
 	double t;
 	t_result result;
+	t_ray scattered;
 
 	if (depth <= 0)
 		return vector3_init(0, 0, 0);
 	result = scene_hit(scene, r, 0.001, __DBL_MAX__);
 	if (result.ret)
 	{
-		dir = vector3_add(result.p, vector3_random_hemisphere(result.norm));
-		return vector3_mult(ray_color(ray_init(result.p, vector3_sbtr(dir, result.p)), scene, depth - 1), 0.5);
+		scattered = result.mat->scatter(result.mat->obj, r, &result, &temp);
+		if (result.ret)
+			return (vector3_mult_vec(temp, ray_color(scattered, scene, depth - 1)));
+		return vector3_init(0, 0, 0);
 	}
-	dir = vector3_norm(r.dir);
-	t = 0.5 * (dir.y + 1.0);
+	temp = vector3_norm(r.dir);
+	t = 0.5 * (temp.y + 1.0);
 	return (vector3_add(
 		vector3_mult(vector3_init(1.0, 1.0, 1.0), 1.0 - t),
 		vector3_mult(vector3_init(0.5, 0.7, 1.0), t)
@@ -112,10 +116,10 @@ int main(void)
 	img.img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line, &img.endian);
 
-	scene_add(&scene, sphere_alloc(vector3_init(0, 0, -10.0), 0.5));
-	scene_add(&scene, sphere_alloc(vector3_init(1, 0, -10.0), 0.5));
-	scene_add(&scene, sphere_alloc(vector3_init(-1, 0, -10.0), 0.5));
-	scene_add(&scene, sphere_alloc(vector3_init(0.0, -100.5, -10.0), 100.0));
+	scene_add(&scene, sphere_alloc(vector3_init(0, 0, -2.0), 0.5, lambertian_alloc(vector3_init(1, 0, 0))));
+	scene_add(&scene, sphere_alloc(vector3_init(1, 0, -2.0), 0.5, lambertian_alloc(vector3_init(0, 1, 0))));
+	scene_add(&scene, sphere_alloc(vector3_init(-1, 0, -2.0), 0.5, lambertian_alloc(vector3_init(0, 0, 1))));
+	scene_add(&scene, sphere_alloc(vector3_init(0.0, -100.5, -2.0), 100.0, lambertian_alloc(vector3_init(0.5, 0.5, 0.5))));
 	camera_setting(&cam, (double)SCREEN_WIDTH / (double)SCREEN_HEIGHT, 2.0, 1.0);
 	fillimage(&img, &scene, &cam);
 	mlx_put_image_to_window(mlx, window, img.img, 0, 0);

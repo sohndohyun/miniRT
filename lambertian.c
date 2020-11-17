@@ -6,21 +6,22 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 21:56:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/16 22:19:40 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/17 16:41:22 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lambertian.h"
+#include "hittable.h"
+#include <stdio.h>
 
 t_ray			lambertian_scatter(void *obj, t_ray rin, t_result *result, t_vector3 *color)
 {
-	t_material *mat;
 	t_ray scattered;
 	t_lambertian *lam;
 	t_vector3 scat_dir;
 
-	mat = obj;
-	lam = mat->obj;
+	scattered = rin;
+	lam = obj;
 	result->ret = 1;
 	scat_dir = vector3_add(result->norm, vector3_norm_random());
 	if (vector3_near_zero(scat_dir))
@@ -38,7 +39,7 @@ t_material		*lambertian_alloc(t_vector3 albedo)
 	lam = malloc(sizeof(t_lambertian));
 	lam->albedo = albedo;
 	mat = malloc(sizeof(t_material));
-	mat->obj = (void*)lam;
+	mat->obj = lam;
 	mat->scatter = lambertian_scatter;
 	mat->del = lambertian_free;
 	return (mat);
