@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/19 14:47:37 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/19 22:08:02 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 450
-#define SAMPLE_PER_PIXEL 100
-#define MAX_DEPTH 50
+#define SAMPLE_PER_PIXEL 40
+#define MAX_DEPTH 15
 
 typedef struct	s_image {
 	void		*img;
@@ -30,6 +30,39 @@ typedef struct	s_image {
 	int			line;
 	int			endian;
 }				t_image;
+
+void random_scene(t_scene *scene)
+{
+	
+	int i;
+	int j;
+	double choose_mat;
+	t_vector3 center;
+
+	scene_add(scene, sphere_alloc(vector3_init(0, -1000, 0), 1000, lambertian_alloc(vector3_init(0.5, 0.5, 0.5))));
+	
+	for (i = -11;i < 11;i++)
+	{
+		for (j = -11;j < 11;j++)
+		{
+			choose_mat = random_double();
+			center = vector3_init(i + 0.9 * random_double(), 0.2, j + 0.9 * random_double());
+			if (vector3_length(vector3_sbtr(center, vector3_init(4, 0.2, 0))) > 0.9)
+			{
+				if (choose_mat < 0.8)
+					scene_add(scene, sphere_alloc(center, 0.2, lambertian_alloc(vector3_random_range(0, 1))));
+				else if (choose_mat < 0.95)
+					scene_add(scene, sphere_alloc(center, 0.2, metal_alloc(vector3_random_range(0.5, 1), random_range(0, 0.5))));
+				else
+					scene_add(scene, sphere_alloc(center, 0.2, dielectric_alloc(1.5)));
+			}
+		}
+	}
+
+	scene_add(scene, sphere_alloc(vector3_init(0, 1, 0), 1, dielectric_alloc(1.5)));
+	scene_add(scene, sphere_alloc(vector3_init(-4, 1, 0), 1, lambertian_alloc(vector3_init(0.4, 0.2, 0.1))));
+	scene_add(scene, sphere_alloc(vector3_init(4, 1, 0), 1, metal_alloc(vector3_init(0.7, 0.6, 0.5), 0.0)));
+}
 
 unsigned int vtoc(t_vector3 v, int samples_per_pixel)
 {
@@ -92,8 +125,8 @@ void fillimage(t_image *img, t_scene *scene, t_camera *cam)
 			k = 0;
 			while (k < SAMPLE_PER_PIXEL)
 			{
-				pixel_color = vector3_add(pixel_color, ray_color(camera_getray(cam, \
-					(random_double() + i) / (SCREEN_WIDTH - 1), \
+				pixel_color = vector3_add(pixel_color, ray_color(camera_getray(cam,
+					(random_double() + i) / (SCREEN_WIDTH - 1),
 					(random_double() + j) / (SCREEN_HEIGHT - 1)), scene, MAX_DEPTH));
 				k++;
 			}
@@ -112,17 +145,29 @@ int main(void)
 	t_scene scene;
 	t_camera cam;
 
+	t_vector3 lookfrom;
+	t_vector3 lookat;
+	t_vector3 vup;
+	double dist_to_focus;
+	double aperture;
+
 	scene = NULL;
 	mlx = mlx_init();
 	window = mlx_new_window(mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "miniRT");
 	img.img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line, &img.endian);
 
-	scene_add(&scene, sphere_alloc(vector3_init(0, 0, -2.0), 1.0, lambertian_alloc(vector3_init(0.7, 0.3, 0.3))));
-	scene_add(&scene, sphere_alloc(vector3_init(-2, 0, -2.0), 1.0, dielectric_alloc(2.0)));
-	scene_add(&scene, sphere_alloc(vector3_init(2, 0, -2.0), 1.0, metal_alloc(vector3_init(0.8, 0.6, 0.2), 0.0)));
-	scene_add(&scene, sphere_alloc(vector3_init(0.0, -101.0, -2.0), 100.0, lambertian_alloc(vector3_init(0.8, 0.8, 0))));
-	camera_setting(&cam, (double)SCREEN_WIDTH / (double)SCREEN_HEIGHT, 2.0, 1.0);
+	lookfrom = vector3_init(13, 2, 3);
+	lookat = vector3_init(0, 0, 0);
+	vup = vector3_init(0, 1, 0);
+	dist_to_focus = 10;
+	aperture = 0.1;
+
+	camera_setting(&cam, 20, vector3_init((double)SCREEN_WIDTH / (double)SCREEN_HEIGHT, aperture, dist_to_focus));
+	camera_transform(&cam, lookfrom, lookat, vup);
+
+	random_scene(&scene);
+
 	fillimage(&img, &scene, &cam);
 	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
 	mlx_loop(mlx);
