@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 20:20:00 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/17 16:12:11 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/18 21:27:45 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ t_vector3		vector3_random_hemisphere(t_vector3 norm);
 int				vector3_near_zero(t_vector3 vec3);
 t_vector3		vector3_reflect(t_vector3 v, t_vector3 n);
 t_vector3		vector3_mult_vec(t_vector3 v1, t_vector3 v2);
+t_vector3		vector3_refract(t_vector3 uv, t_vector3 n, double etai_over_etat);
 
 #endif

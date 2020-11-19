@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 02:15:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/17 16:11:53 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/18 21:10:46 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,16 @@ t_vector3		vector3_reflect(t_vector3 v, t_vector3 n)
 t_vector3		vector3_mult_vec(t_vector3 v1, t_vector3 v2)
 {
 	return vector3_init(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
+}
+
+t_vector3		vector3_refract(t_vector3 uv, t_vector3 n, double etai_over_etat)
+{
+	double cos_theta;
+	t_vector3 out_perp;
+	t_vector3 out_parallel;
+
+	cos_theta = fmin(vector3_dot(vector3_not(uv), n), 1.0);
+	out_perp = vector3_mult(vector3_add(uv, vector3_mult(n, cos_theta)), etai_over_etat);
+	out_parallel = vector3_mult(n, -sqrt(fabs(1.0 - vector3_length_squared(out_perp))));
+	return (vector3_add(out_perp, out_parallel));
 }

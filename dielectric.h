@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   metal.h                                            :+:      :+:    :+:   */
+/*   dielectric.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/17 15:57:14 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/18 15:17:55 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/18 21:10:22 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/18 21:53:01 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef METAL_H
-# define METAL_H
+#ifndef DIELECTRIC_H
+# define DIELECTRIC_H
 
 # include "minirt.h"
 
-typedef struct	s_metal
+typedef struct	s_dielectric
 {
-	t_vector3	albedo;
-	double		fuzz;
-}				t_metal;
+	double ir;
+}				t_dielectric;
 
-t_ray			metal_scatter(void *obj, t_ray rin, t_result *result, t_vector3 *color);
-t_material		*metal_alloc(t_vector3 albedo, double f);
-void			metal_free(void *metal);
+t_ray			dielectric_scatter(void *obj, t_ray rin, t_result *result, t_vector3 *color);
+t_material		*dielectric_alloc(double ir);
+void			dielectric_free(void *dielectric);
 
 #endif
