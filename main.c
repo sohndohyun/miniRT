@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/19 22:08:02 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/19 22:22:39 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 #include "metal.h"
 #include "dielectric.h"
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 450
+#define SCREEN_WIDTH 400
+#define SCREEN_HEIGHT 225
 #define SAMPLE_PER_PIXEL 40
 #define MAX_DEPTH 15
 
@@ -161,7 +161,7 @@ int main(void)
 	lookat = vector3_init(0, 0, 0);
 	vup = vector3_init(0, 1, 0);
 	dist_to_focus = 10;
-	aperture = 0.1;
+	aperture = 0.01;
 
 	camera_setting(&cam, 20, vector3_init((double)SCREEN_WIDTH / (double)SCREEN_HEIGHT, aperture, dist_to_focus));
 	camera_transform(&cam, lookfrom, lookat, vup);
