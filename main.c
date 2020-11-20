@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/20 22:59:46 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/21 00:53:47 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 #include "dielectric.h"
 #include <time.h>
 
-#define SCREEN_WIDTH 400
-#define SCREEN_HEIGHT 225
-#define SAMPLE_PER_PIXEL 40
-#define MAX_DEPTH 15
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
+#define SAMPLE_PER_PIXEL 30
+#define MAX_DEPTH 20
 
 void random_scene(t_scene *scene)
 {
@@ -163,10 +163,7 @@ int main(void)
 	scene.max_depth = MAX_DEPTH;
 	random_scene(&scene);
 	//fillimage(&img, &scene, &cam);
-	scene_fillimage(&scene, &img, 4, 0);
-	scene_fillimage(&scene, &img, 4, 1);
-	scene_fillimage(&scene, &img, 4, 2);
-	scene_fillimage(&scene, &img, 4, 3);
+	scene_render(&scene, &img);
 
 	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
 	mlx_loop(mlx);

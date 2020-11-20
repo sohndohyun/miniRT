@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 22:00:52 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/20 22:59:12 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/21 00:33:32 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void scene_fillimage(t_scene *scene, t_image *img, int th_count, int th_no)
 	int j;
 	int end;
 
-	i = scene->screen_width / th_count * th_no;
-	end = scene->screen_width / th_count * (th_no + 1);
+	i = scene->screen_width * th_no / th_count;
+	end = scene->screen_width * (th_no + 1) / th_count;
 	while (i < end)
 	{
 		j = 0;
