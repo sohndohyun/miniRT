@@ -9,6 +9,7 @@ SRCS=	vector3_util.c \
 		ray.c \
 		hittable.c \
 		scene.c \
+		scene_fillimage.c \
 		minirt.c \
 		camera.c \
 		rand.c \

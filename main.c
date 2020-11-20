@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/19 22:22:39 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/20 22:59:46 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,21 @@
 #include "lambertian.h"
 #include "metal.h"
 #include "dielectric.h"
+#include <time.h>
 
 #define SCREEN_WIDTH 400
 #define SCREEN_HEIGHT 225
 #define SAMPLE_PER_PIXEL 40
 #define MAX_DEPTH 15
 
-typedef struct	s_image {
-	void		*img;
-	char		*addr;
-	int			bpp;
-	int			line;
-	int			endian;
-}				t_image;
-
 void random_scene(t_scene *scene)
 {
-	
 	int i;
 	int j;
 	double choose_mat;
 	t_vector3 center;
 
+	ft_srand(time(NULL));
 	scene_add(scene, sphere_alloc(vector3_init(0, -1000, 0), 1000, lambertian_alloc(vector3_init(0.5, 0.5, 0.5))));
 	
 	for (i = -11;i < 11;i++)
@@ -143,15 +136,13 @@ int main(void)
 	void *window;
 	t_image img;
 	t_scene scene;
-	t_camera cam;
-
+ 
 	t_vector3 lookfrom;
 	t_vector3 lookat;
 	t_vector3 vup;
 	double dist_to_focus;
 	double aperture;
 
-	scene = NULL;
 	mlx = mlx_init();
 	window = mlx_new_window(mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "miniRT");
 	img.img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -163,12 +154,20 @@ int main(void)
 	dist_to_focus = 10;
 	aperture = 0.01;
 
-	camera_setting(&cam, 20, vector3_init((double)SCREEN_WIDTH / (double)SCREEN_HEIGHT, aperture, dist_to_focus));
-	camera_transform(&cam, lookfrom, lookat, vup);
+	camera_setting(&scene.cam, 20, vector3_init((double)SCREEN_WIDTH / (double)SCREEN_HEIGHT, aperture, dist_to_focus));
+	camera_transform(&scene.cam, lookfrom, lookat, vup);
 
+	scene.screen_width = SCREEN_WIDTH;
+	scene.screen_height = SCREEN_HEIGHT;
+	scene.sample_per_pixel = SAMPLE_PER_PIXEL;
+	scene.max_depth = MAX_DEPTH;
 	random_scene(&scene);
+	//fillimage(&img, &scene, &cam);
+	scene_fillimage(&scene, &img, 4, 0);
+	scene_fillimage(&scene, &img, 4, 1);
+	scene_fillimage(&scene, &img, 4, 2);
+	scene_fillimage(&scene, &img, 4, 3);
 
-	fillimage(&img, &scene, &cam);
 	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
 	mlx_loop(mlx);
 	scene_free(&scene);

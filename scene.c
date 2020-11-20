@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 01:31:58 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/14 03:46:40 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/20 22:00:29 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_result scene_hit(t_scene *scene, t_ray r, double t_min, double t_max)
 
 	result.ret = 0;
 	closet = t_max;
-	it = (t_list*)*scene;
+	it = scene->hittable_lst;
 	while (it != NULL)
 	{
 		obj = it->content;
@@ -39,10 +39,10 @@ t_result scene_hit(t_scene *scene, t_ray r, double t_min, double t_max)
 
 void scene_add(t_scene *scene, t_hittable *object)
 {
-	ft_lstadd_back(scene, ft_lstnew(object));
+	ft_lstadd_back(&scene->hittable_lst, ft_lstnew(object));
 }
   
 void scene_free(t_scene *scene)
 {
-	ft_lstclear(scene, hittable_free);
+	ft_lstclear(&scene->hittable_lst, hittable_free);
 }
