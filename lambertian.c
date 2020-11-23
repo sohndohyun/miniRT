@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 21:56:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/17 16:41:22 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/23 20:52:24 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ t_ray			lambertian_scatter(void *obj, t_ray rin, t_result *result, t_vector3 *co
 	if (vector3_near_zero(scat_dir))
 		scat_dir = result->norm;
 	scattered = ray_init(result->p, scat_dir);
-	(*color) = lam->albedo;
+	(*color) = lam->albedo->value(lam->albedo->obj, result->u, result->v, result->p);
 	return (scattered);
 }
 
-t_material		*lambertian_alloc(t_vector3 albedo)
+t_material		*lambertian_alloc(t_texture *albedo)
 {
 	t_lambertian *lam;
 	t_material *mat;
@@ -50,5 +50,6 @@ void			lambertian_free(void *lam)
 	t_lambertian *temp;
 
 	temp = lam;
+	temp->albedo->free(temp->albedo);
 	free(temp);
 }

@@ -6,22 +6,22 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 17:38:48 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/17 21:13:07 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/23 20:27:28 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LAMBERTIAN_H
 # define LAMBERTIAN_H
 
-# include "minirt.h"
+# include "texture.h"
 
 typedef struct	s_lambertian
 {
-	t_vector3	albedo;
+	t_texture	*albedo;
 }				t_lambertian;
 
 t_ray			lambertian_scatter(void *obj, t_ray rin, t_result *result, t_vector3 *color);
-t_material		*lambertian_alloc(t_vector3 albedo);
+t_material		*lambertian_alloc(t_texture *albedo);
 void			lambertian_free(void *lambertian);
 
 #endif

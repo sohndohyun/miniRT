@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 20:44:29 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/17 14:59:45 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/23 20:12:09 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct			s_result
 	t_vector3			norm;
 	struct s_material	*mat;
 	double				t;
+	double				u;
+	double				v;
 	int					front_face;
 	int					ret;
 }						t_result;

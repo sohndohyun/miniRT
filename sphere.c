@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 21:33:41 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/17 16:32:14 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/23 20:43:30 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_result	sphere_hit(void *obj, t_ray r, double t_min, double t_max)
 	result.p = ray_at(r, root);
 	val.oc = vector3_div(vector3_sbtr(result.p, sphere->center), sphere->radius);
 	result_set_face_normal(&result, r, val.oc);
+	sphere_get_uv(val.oc, &result.u, &result.v);
 	result.mat = sphere->mat;
 	result.ret = 1;
 	return (result);
@@ -86,4 +87,15 @@ void			sphere_free(void *sphere)
 	temp->mat->del(temp->mat->obj);
 	free(temp->mat);
 	free(temp);
+}
+
+void			sphere_get_uv(t_vector3 p, double *u, double *v)
+{
+	double phi;
+	double theta;
+
+	phi = atan2(-p.z, p.x) + PI;
+	theta = acos(-p.y);
+	*u = phi / (2 * PI);
+	*v = theta / PI;
 }

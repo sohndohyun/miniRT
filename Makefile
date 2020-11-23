@@ -16,7 +16,9 @@ SRCS=	vector3_util.c \
 		rand.c \
 		lambertian.c \
 		metal.c \
-		dielectric.c 
+		dielectric.c \
+		solid_color.c \
+		checker.c 
 
 OBJS=${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/21 00:53:47 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/23 21:27:58 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@
 #include "lambertian.h"
 #include "metal.h"
 #include "dielectric.h"
+#include "solid_color.h"
+#include "checker.h"
 #include <time.h>
 
-#define SCREEN_WIDTH 1920
-#define SCREEN_HEIGHT 1080
+#define SCREEN_WIDTH 600
+#define SCREEN_HEIGHT 400
 #define SAMPLE_PER_PIXEL 30
 #define MAX_DEPTH 20
 
@@ -32,7 +34,8 @@ void random_scene(t_scene *scene)
 	t_vector3 center;
 
 	ft_srand(time(NULL));
-	scene_add(scene, sphere_alloc(vector3_init(0, -1000, 0), 1000, lambertian_alloc(vector3_init(0.5, 0.5, 0.5))));
+	scene_add(scene, sphere_alloc(vector3_init(0, -1000, 0), 1000, 
+		lambertian_alloc(checker_alloc(vector3_init(1.0, 1.0, 1.0), vector3_init(0.2, 0.2, 0.2)))));
 	
 	for (i = -11;i < 11;i++)
 	{
@@ -43,7 +46,7 @@ void random_scene(t_scene *scene)
 			if (vector3_length(vector3_sbtr(center, vector3_init(4, 0.2, 0))) > 0.9)
 			{
 				if (choose_mat < 0.8)
-					scene_add(scene, sphere_alloc(center, 0.2, lambertian_alloc(vector3_random_range(0, 1))));
+					scene_add(scene, sphere_alloc(center, 0.2, lambertian_alloc(solid_color_alloc(vector3_random_range(0, 1)))));
 				else if (choose_mat < 0.95)
 					scene_add(scene, sphere_alloc(center, 0.2, metal_alloc(vector3_random_range(0.5, 1), random_range(0, 0.5))));
 				else
@@ -53,7 +56,7 @@ void random_scene(t_scene *scene)
 	}
 
 	scene_add(scene, sphere_alloc(vector3_init(0, 1, 0), 1, dielectric_alloc(1.5)));
-	scene_add(scene, sphere_alloc(vector3_init(-4, 1, 0), 1, lambertian_alloc(vector3_init(0.4, 0.2, 0.1))));
+	scene_add(scene, sphere_alloc(vector3_init(-4, 1, 0), 1, lambertian_alloc(solid_color_alloc((vector3_init(0.4, 0.2, 0.1))))));
 	scene_add(scene, sphere_alloc(vector3_init(4, 1, 0), 1, metal_alloc(vector3_init(0.7, 0.6, 0.5), 0.0)));
 }
 

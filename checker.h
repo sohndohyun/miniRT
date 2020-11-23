@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/05 21:16:34 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/23 20:21:32 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/23 20:59:27 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/23 21:10:47 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#ifndef CHECKER_H
+# define CHECKER_H
 
-# include "hittable.h"
-# include "material.h"
+# include "solid_color.h"
 
-typedef struct	s_sphere
+typedef struct	s_checker
 {
-	t_vector3	center;
-	double		radius;
-	t_material	*mat;
-}				t_sphere;
+	t_texture	*odd;
+	t_texture	*even;
+}				t_checker;
 
-t_result		sphere_hit(void *obj, t_ray r, double t_min, double t_max);
-t_hittable		*sphere_alloc(t_vector3 center, double radius, t_material *mat);
-void			sphere_free(void *sphere);
-void			sphere_get_uv(t_vector3 p, double *u, double *v);
+t_vector3		checker_value(void *obj, double u, double v, t_vector3 point);
+void			checker_free(void *obj);
+t_texture		*checker_alloc(t_vector3 c1, t_vector3 c2);
 
 #endif

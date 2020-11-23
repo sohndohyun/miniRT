@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   texture.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/05 21:16:34 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/23 20:21:32 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/23 19:50:18 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/23 20:02:29 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#ifndef TEXTURE_H
+# define TEXTURE_H
 
-# include "hittable.h"
-# include "material.h"
+#include "minirt.h"
 
-typedef struct	s_sphere
+typedef struct	s_texture
 {
-	t_vector3	center;
-	double		radius;
-	t_material	*mat;
-}				t_sphere;
-
-t_result		sphere_hit(void *obj, t_ray r, double t_min, double t_max);
-t_hittable		*sphere_alloc(t_vector3 center, double radius, t_material *mat);
-void			sphere_free(void *sphere);
-void			sphere_get_uv(t_vector3 p, double *u, double *v);
+	void		*obj;
+	t_vector3	(*value)(void *obj, double u, double v, t_vector3 point);
+	void		(*free)(void *obj);
+}				t_texture;
 
 #endif
