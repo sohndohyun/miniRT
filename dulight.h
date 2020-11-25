@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   dulight.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/14 00:22:02 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/25 15:28:15 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/25 15:28:32 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/25 16:42:02 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef DULIGHT_H
+# define DULIGHT_H
 
-double random_double()
-{
-	return ((double)ft_rand() / (RAND_MAX + 1.0));
-}
+# include "material.h"
+# include "texture.h"
 
-double random_range(double min, double max)
+typedef struct	s_dulight
 {
-	return (min + (max - min) * random_double());
-}
+	t_texture	*emit;
+}				t_dulight;
 
-double dtor(double d)
-{
-	return (d * PI / 180.0);
-}
+t_material		*dulight_alloc(t_texture *a);
+t_vector3		dulight_emitted(void *obj, double u, double v, t_vector3 p);
+t_ray			dulight_scatter(void *obj, t_ray rin, t_result *result, t_vector3 *color);
+void			dulight_free(void *obj);
 
-double clamp(double x, double min, double max)
-{
-	if (x < min) 
-		return (min);
-	if (x > max) 
-		return (max);
-	return (x);
-}
+#endif

@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/23 21:27:58 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/25 18:02:10 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 #include "dielectric.h"
 #include "solid_color.h"
 #include "checker.h"
+#include "dulight.h"
 #include <time.h>
 
-#define SCREEN_WIDTH 600
-#define SCREEN_HEIGHT 400
+#define SCREEN_WIDTH 400
+#define SCREEN_HEIGHT 225
 #define SAMPLE_PER_PIXEL 30
 #define MAX_DEPTH 20
 
@@ -45,19 +46,23 @@ void random_scene(t_scene *scene)
 			center = vector3_init(i + 0.9 * random_double(), 0.2, j + 0.9 * random_double());
 			if (vector3_length(vector3_sbtr(center, vector3_init(4, 0.2, 0))) > 0.9)
 			{
-				if (choose_mat < 0.8)
+				if (choose_mat < 0.5)
 					scene_add(scene, sphere_alloc(center, 0.2, lambertian_alloc(solid_color_alloc(vector3_random_range(0, 1)))));
-				else if (choose_mat < 0.95)
+				else if (choose_mat < 0.65)
 					scene_add(scene, sphere_alloc(center, 0.2, metal_alloc(vector3_random_range(0.5, 1), random_range(0, 0.5))));
-				else
+				else if (choose_mat < 0.75)
 					scene_add(scene, sphere_alloc(center, 0.2, dielectric_alloc(1.5)));
+				else
+					scene_add(scene, sphere_alloc(center, 0.2, dulight_alloc(solid_color_alloc(vector3_init(1.0, 1.0, 1.0)))));
 			}
 		}
 	}
 
-	scene_add(scene, sphere_alloc(vector3_init(0, 1, 0), 1, dielectric_alloc(1.5)));
+//	scene_add(scene, sphere_alloc(vector3_init(0, 1, 0), 1, dielectric_alloc(1.5)));
 	scene_add(scene, sphere_alloc(vector3_init(-4, 1, 0), 1, lambertian_alloc(solid_color_alloc((vector3_init(0.4, 0.2, 0.1))))));
 	scene_add(scene, sphere_alloc(vector3_init(4, 1, 0), 1, metal_alloc(vector3_init(0.7, 0.6, 0.5), 0.0)));
+	scene_add(scene, sphere_alloc(vector3_init(0, 1, 0), 1, dulight_alloc(solid_color_alloc(vector3_init(1.0, 1.0, 1.0)))));
+	scene->background = vector3_init(0.05, 0.05, 0.05);
 }
 
 unsigned int vtoc(t_vector3 v, int samples_per_pixel)

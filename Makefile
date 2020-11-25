@@ -8,6 +8,7 @@ SRCS=	vector3_util.c \
 		sphere.c \
 		ray.c \
 		hittable.c \
+		material.c \
 		scene.c \
 		scene_fillimage.c \
 		scene_render.c \
@@ -18,7 +19,8 @@ SRCS=	vector3_util.c \
 		metal.c \
 		dielectric.c \
 		solid_color.c \
-		checker.c 
+		checker.c \
+		dulight.c
 
 OBJS=${SRCS:.c=.o}
 

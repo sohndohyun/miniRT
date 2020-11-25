@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.c                                           :+:      :+:    :+:   */
+/*   material.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/14 00:22:02 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/25 15:28:15 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/25 16:27:26 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/25 16:40:51 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "material.h"
 
-double random_double()
+t_vector3		material_emitted(void *obj, double u, double v, t_vector3 p)
 {
-	return ((double)ft_rand() / (RAND_MAX + 1.0));
-}
+	t_material *mat;
 
-double random_range(double min, double max)
-{
-	return (min + (max - min) * random_double());
-}
-
-double dtor(double d)
-{
-	return (d * PI / 180.0);
-}
-
-double clamp(double x, double min, double max)
-{
-	if (x < min) 
-		return (min);
-	if (x > max) 
-		return (max);
-	return (x);
+	mat = obj;
+	p.x = u + v;
+	return vector3_init(0, 0, 0);
 }

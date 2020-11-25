@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 21:15:02 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/19 14:43:25 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/25 16:54:57 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_material		*dielectric_alloc(double ir)
 	mat = malloc(sizeof(t_material));
 	mat->obj = dielectric;
 	mat->scatter = dielectric_scatter;
+	mat->emitted = material_emitted;
 	mat->del = dielectric_free;
 	return (mat);
 }

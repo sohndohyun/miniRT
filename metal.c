@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 21:16:31 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/18 15:19:51 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/25 16:42:22 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_material		*metal_alloc(t_vector3 albedo, double f)
 	mat = malloc(sizeof(t_material));
 	mat->obj = metal;
 	mat->scatter = metal_scatter;
+	mat->emitted = material_emitted;
 	mat->del = metal_free;
 	return (mat);
 }

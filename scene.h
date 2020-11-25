@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 01:15:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/20 23:09:50 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/25 17:16:19 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_scene
 	int			max_depth;
 	t_list		*hittable_lst;
 	t_camera	cam;
+	t_vector3	background;
 }				t_scene;
 
 typedef struct	s_image {

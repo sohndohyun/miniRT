@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 22:00:52 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/21 00:33:32 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/25 17:19:02 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,20 @@ static unsigned int vtoc(t_vector3 v, int samples_per_pixel)
 static t_vector3 ray_color(t_ray r, t_scene *scene, int depth)
 {
 	t_vector3 temp;
-	double t;
 	t_result result;
 	t_ray scattered;
+	t_vector3 emitted;
 
 	if (depth <= 0)
 		return vector3_init(0, 0, 0);
 	result = scene_hit(scene, r, 0.001, __DBL_MAX__);
-	if (result.ret)
-	{
-		scattered = result.mat->scatter(result.mat->obj, r, &result, &temp);
-		if (result.ret)
-			return (vector3_mult_vec(temp, ray_color(scattered, scene, depth - 1)));
-		return vector3_init(0, 0, 0);
-	}
-	temp = vector3_norm(r.dir);
-	t = 0.5 * (temp.y + 1.0);
-	return (vector3_add(
-		vector3_mult(vector3_init(1.0, 1.0, 1.0), 1.0 - t),
-		vector3_mult(vector3_init(0.5, 0.7, 1.0), t)
-	));
+	if (!result.ret)
+		return (scene->background);
+	emitted = result.mat->emitted(result.mat->obj, result.u, result.v, result.p);
+	scattered = result.mat->scatter(result.mat->obj, r, &result, &temp);
+	if (!result.ret)
+		return (emitted);
+	return (vector3_add(emitted, vector3_mult_vec(temp, ray_color(scattered, scene, depth - 1))));
 }
 
 static void set_color(unsigned int *dst, t_scene *scene, int i, int j)
