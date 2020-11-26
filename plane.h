@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   plane.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/05 21:16:34 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/26 20:13:17 by dsohn            ###   ########.fr       */
+/*   Created: 2020/11/26 20:12:56 by dsohn             #+#    #+#             */
+/*   Updated: 2020/11/26 20:35:58 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#ifndef PLANE_H
+# define PLANE_H
 
 # include "hittable.h"
 # include "material.h"
 
-typedef struct	s_sphere
+typedef struct	s_plane
 {
-	t_vector3	center;
-	double		radius;
+	t_vector3	orig;
+	t_vector3	face;
 	t_material	*mat;
-}				t_sphere;
+}				t_plane;
 
-t_result		sphere_hit(void *obj, t_ray r, double t_min, double t_max);
-t_hittable		*sphere_alloc(t_vector3 center, double radius, t_material *mat);
-void			sphere_free(void *sphere);
-void			sphere_get_uv(t_vector3 p, double *u, double *v);
+t_result		plane_hit(void *obj, t_ray r, double t_min, double t_max);
+t_hittable		*plane_alloc(t_vector3 orig, t_vector3 face, t_material *mat);
+void			plane_free(void *sphere);
 
 #endif

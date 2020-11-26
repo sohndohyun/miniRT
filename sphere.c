@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 21:33:41 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/23 20:43:30 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/26 20:54:03 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_result	sphere_hit(void *obj, t_ray r, double t_min, double t_max)
 	t_sphere *sphere;
 	t_result result;
 	t_fvalue val;
-	double root;
 	double sqrtd;
 
 	result.ret = 0;
@@ -46,15 +45,14 @@ t_result	sphere_hit(void *obj, t_ray r, double t_min, double t_max)
 	if (val.disc < 0)
 		return (result);
 	sqrtd = sqrt(val.disc);
-	root = (-val.half_b - sqrtd) / val.a;
-	if (root < t_min || t_max < root)
+	result.t = (-val.half_b - sqrtd) / val.a;
+	if (result.t < t_min || t_max < result.t)
 	{
-		root = (-val.half_b + sqrtd) / val.a;
-		if (root < t_min || t_max < root)
+		result.t = (-val.half_b + sqrtd) / val.a;
+		if (result.t < t_min || t_max < result.t)
 			return (result);
 	}
-	result.t = root;
-	result.p = ray_at(r, root);
+	result.p = ray_at(r, result.t);
 	val.oc = vector3_div(vector3_sbtr(result.p, sphere->center), sphere->radius);
 	result_set_face_normal(&result, r, val.oc);
 	sphere_get_uv(val.oc, &result.u, &result.v);
