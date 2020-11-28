@@ -1,4 +1,6 @@
 NAME=miniRT
+CC=gcc
+FLAG=-Wall -Wextra -Werror
 MINILIB=miniLIB
 LIBFT=./libft/libft.a
 SRCS=	vector3_util.c \
@@ -28,11 +30,11 @@ OBJS=${SRCS:.c=.o}
 all: ${NAME}
 bonus: all
 $(OBJS): $(SRCS)
-	gcc -Wall -Wextra -Werror -I. -I./libft/. -c $(SRCS)
+	$(CC) $(FLAG) -I. -I./libft/. -c $(SRCS)
 
 $(NAME): libftdo $(OBJS)
 	cp $(LIBFT) $(MINILIB)
-	gcc -Wall -Wextra -Werror -I. $(MINILIB) $(OBJS) main.c libmlx.dylib -o $(NAME)
+	$(CC) -g $(FLAG) -I. $(MINILIB) $(OBJS) main.c libmlx.dylib -o $(NAME)
 
 libftdo:
 	$(MAKE) -C ./libft bonus

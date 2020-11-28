@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lambertian.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 21:56:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/25 16:43:04 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/29 01:44:01 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ t_material		*lambertian_alloc(t_texture *albedo)
 	t_lambertian *lam;
 	t_material *mat;
 
-	lam = malloc(sizeof(t_lambertian));
+	lam = (t_lambertian*)malloc(sizeof(t_lambertian));
 	lam->albedo = albedo;
-	mat = malloc(sizeof(t_material));
+	mat = (t_material*)malloc(sizeof(t_material));
 	mat->obj = lam;
 	mat->scatter = lambertian_scatter;
 	mat->emitted = material_emitted;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/28 22:19:46 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/29 02:04:18 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@
 #include "dulight.h"
 #include "plane.h"
 #include <time.h>
+#include <stdio.h>
 
 #define SCREEN_WIDTH 400
 #define SCREEN_HEIGHT 225
 #define SAMPLE_PER_PIXEL 50
-#define MAX_DEPTH 30
+#define MAX_DEPTH 20
 
 void random_scene(t_scene *scene)
 {
@@ -94,6 +95,7 @@ int main(void)
 	camera_setting(&scene.cam, 20, vector3_init((double)SCREEN_WIDTH / (double)SCREEN_HEIGHT, aperture, dist_to_focus));
 	camera_transform(&scene.cam, lookfrom, lookat, vup);
 
+	scene.hittable_lst = NULL;
 	scene.screen_width = SCREEN_WIDTH;
 	scene.screen_height = SCREEN_HEIGHT;
 	scene.sample_per_pixel = SAMPLE_PER_PIXEL;
@@ -106,5 +108,6 @@ int main(void)
 	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
 	mlx_loop(mlx);
 	scene_free(&scene);
+
 	return (0);
 }

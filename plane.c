@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 20:39:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/28 21:38:49 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/29 02:03:10 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "plane.h"
+#include <stdio.h>
 
 static t_vector3 compute_primary_dir(t_vector3 n)
 {
@@ -68,11 +69,11 @@ t_hittable		*plane_alloc(t_vector3 orig, t_vector3 face, t_material *mat)
 	t_plane *plane;
 	t_hittable *hit;
 
-	plane = malloc(sizeof(t_plane));
+	plane = (t_plane*)malloc(sizeof(t_plane));
 	plane->face = face;
 	plane->orig = orig;
 	plane->mat = mat;
-	hit = malloc(sizeof(t_hittable));
+	hit = (t_hittable*)malloc(sizeof(t_hittable));
 	hit->hit = plane_hit;
 	hit->object = plane;
 	hit->del = plane_free;

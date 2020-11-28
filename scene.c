@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 01:31:58 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/20 22:00:29 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/29 02:03:05 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
+#include <stdio.h>
 
 t_result scene_hit(t_scene *scene, t_ray r, double t_min, double t_max)
 {

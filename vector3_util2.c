@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 19:14:05 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/16 02:14:36 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/29 00:38:23 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_vector3		vector3_random_unit_sphere()
 {
 	t_vector3 temp;
 
+	temp = vector3_init(0, 0, 0);
 	while (1)
 	{
 		temp = vector3_random_range(-1, 1);
