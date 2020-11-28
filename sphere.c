@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 21:33:41 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/26 20:54:03 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/28 15:58:35 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ typedef struct	s_fvalue
 	double c;
 	double disc;
 }				t_fvalue;
+
+
+static void	sphere_get_uv(t_vector3 p, double *u, double *v)
+{
+	double phi;
+	double theta;
+
+	phi = atan2(-p.z, p.x) + PI;
+	theta = acos(-p.y);
+	*u = phi / (2 * PI);
+	*v = theta / PI;
+}
 
 static void calculate(t_sphere *sphere, t_ray r, t_fvalue *val)
 {
@@ -85,15 +97,4 @@ void			sphere_free(void *sphere)
 	temp->mat->del(temp->mat->obj);
 	free(temp->mat);
 	free(temp);
-}
-
-void			sphere_get_uv(t_vector3 p, double *u, double *v)
-{
-	double phi;
-	double theta;
-
-	phi = atan2(-p.z, p.x) + PI;
-	theta = acos(-p.y);
-	*u = phi / (2 * PI);
-	*v = theta / PI;
 }

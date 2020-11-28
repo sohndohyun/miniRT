@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 21:16:34 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/26 20:13:17 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/28 15:58:35 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@ typedef struct	s_sphere
 t_result		sphere_hit(void *obj, t_ray r, double t_min, double t_max);
 t_hittable		*sphere_alloc(t_vector3 center, double radius, t_material *mat);
 void			sphere_free(void *sphere);
-void			sphere_get_uv(t_vector3 p, double *u, double *v);
 
 #endif

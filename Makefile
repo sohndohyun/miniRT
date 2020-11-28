@@ -20,7 +20,8 @@ SRCS=	vector3_util.c \
 		dielectric.c \
 		solid_color.c \
 		checker.c \
-		dulight.c
+		dulight.c \
+		plane.c
 
 OBJS=${SRCS:.c=.o}
 
