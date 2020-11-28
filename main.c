@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/28 21:39:34 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/28 22:19:46 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 #include "plane.h"
 #include <time.h>
 
-#define SCREEN_WIDTH 600
-#define SCREEN_HEIGHT 400
-#define SAMPLE_PER_PIXEL 30
-#define MAX_DEPTH 50
+#define SCREEN_WIDTH 400
+#define SCREEN_HEIGHT 225
+#define SAMPLE_PER_PIXEL 50
+#define MAX_DEPTH 30
 
 void random_scene(t_scene *scene)
 {
@@ -60,11 +60,11 @@ void random_scene(t_scene *scene)
 
 	scene_add(scene, sphere_alloc(vector3_init(0, 1, 0), 1, dielectric_alloc(1.5)));
 	scene_add(scene, sphere_alloc(vector3_init(-4, 1, 0), 1, lambertian_alloc(solid_color_alloc((vector3_init(0.4, 0.2, 0.1))))));
-	scene_add(scene, sphere_alloc(vector3_init(0, 1, -2), 1, metal_alloc(vector3_init(0.7, 0.6, 0.5), 0.0)));
-//	scene_add(scene, sphere_alloc(vector3_init(0, 1, 0), 1, dulight_alloc(solid_color_alloc(vector3_init(10.0, 10.0, 10.0)))));
+	scene_add(scene, sphere_alloc(vector3_init(0, 1, 2), 1, metal_alloc(vector3_init(0.7, 0.6, 0.5), 0.0)));
+	scene_add(scene, sphere_alloc(vector3_init(0, 1200, 0), 1000, dulight_alloc(solid_color_alloc(vector3_init(4, 4, 4)))));
 	scene_add(scene, sphere_alloc(vector3_init(4, 1, 0), 1, 
 		lambertian_alloc(checker_alloc(vector3_init(1.0, 1.0, 1.0), vector3_init(0.2, 0.2, 0.2)))));
-	scene->background = vector3_init(1.0, 1.0, 1.0);
+	scene->background = vector3_init(0, 0, 0);
 }
 
 int main(void)
