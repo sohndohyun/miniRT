@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 20:39:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/26 21:34:34 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/28 15:14:48 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_result		plane_hit(void *obj, t_ray r, double t_min, double t_max)
 
 t_hittable		*plane_alloc(t_vector3 orig, t_vector3 face, t_material *mat)
 {
-
+	
 }
 
 void			plane_free(void *sphere)
