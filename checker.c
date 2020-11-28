@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 21:07:44 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/28 17:56:52 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/28 21:16:27 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 t_vector3		checker_value(void *obj, double u, double v, t_vector3 point)
 {
-	double sines;
+	//double sines;
+	int a;
+	int b;
 	t_checker *ch;
 
 	ch = (t_checker*)obj;
-	sines = sin(10 * point.x) * sin(10 * point.y) * sin(10 * point.z);
+	//sines = sin(10 * point.x) * sin(10 * point.y) * sin(10 * point.z);
+
+	a = clamp(u, 0.0, 1.0) * 10;
+    b = (1.0 - clamp(v, 0.0, 1.0)) * 10;
 	
-	if (sines < 0)
+	if (a % 2 == b % 2)
 		return (ch->odd->value(ch->odd->obj, u, v, point));
 	else 
 		return (ch->even->value(ch->even->obj, u, v, point));

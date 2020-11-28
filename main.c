@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/28 18:29:08 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/28 21:39:34 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void random_scene(t_scene *scene)
 //	scene_add(scene, sphere_alloc(vector3_init(0, -1000, 0), 1000, 
 //		lambertian_alloc(checker_alloc(vector3_init(1.0, 1.0, 1.0), vector3_init(0.2, 0.2, 0.2)))));
 	scene_add(scene, plane_alloc(vector3_init(0, 0, 0), vector3_init(0, 1, 0), 
-		lambertian_alloc(solid_color_alloc(vector3_init(0.2, 0.6, 0.4)))));
+		lambertian_alloc(checker_alloc(vector3_init(1.0, 1.0, 1.0), vector3_init(0.2, 0.2, 0.2)))));
 	for (i = -11;i < 11;i++)
 	{
 		for (j = -11;j < 11;j++)
@@ -60,9 +60,11 @@ void random_scene(t_scene *scene)
 
 	scene_add(scene, sphere_alloc(vector3_init(0, 1, 0), 1, dielectric_alloc(1.5)));
 	scene_add(scene, sphere_alloc(vector3_init(-4, 1, 0), 1, lambertian_alloc(solid_color_alloc((vector3_init(0.4, 0.2, 0.1))))));
-	scene_add(scene, sphere_alloc(vector3_init(4, 1, 0), 1, metal_alloc(vector3_init(0.7, 0.6, 0.5), 0.0)));
+	scene_add(scene, sphere_alloc(vector3_init(0, 1, -2), 1, metal_alloc(vector3_init(0.7, 0.6, 0.5), 0.0)));
 //	scene_add(scene, sphere_alloc(vector3_init(0, 1, 0), 1, dulight_alloc(solid_color_alloc(vector3_init(10.0, 10.0, 10.0)))));
-	scene->background = vector3_init(0.1, 0.1, 0.1);
+	scene_add(scene, sphere_alloc(vector3_init(4, 1, 0), 1, 
+		lambertian_alloc(checker_alloc(vector3_init(1.0, 1.0, 1.0), vector3_init(0.2, 0.2, 0.2)))));
+	scene->background = vector3_init(1.0, 1.0, 1.0);
 }
 
 int main(void)
@@ -99,7 +101,6 @@ int main(void)
 	random_scene(&scene);
 //	scene_add(&scene, plane_alloc(vector3_init(0, 0, 0), vector3_init(0, -1, 0), 
 //		lambertian_alloc(checker_alloc(vector3_init(1, 1, 1), vector3_init(0.2, 0.2, 0.2)))));	
-	scene.background = vector3_init(0.5, 0.7, 0.8);
 	scene_render(&scene, &img);
 
 	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
