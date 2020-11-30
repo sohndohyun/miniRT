@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 20:39:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/29 02:03:10 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/11/30 17:03:26 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_result		plane_hit(void *obj, t_ray r, double t_min, double t_max)
 		return (result);
 	result.p = ray_at(r, result.t);
 	result_set_face_normal(&result, r, plane->face);
-	plane_get_uv(result.p, plane->face, &result.u, &result.v);
+	plane_get_uv(vector3_sbtr(plane->orig, result.p), plane->face, &result.u, &result.v);
 	result.mat = plane->mat;
 	result.ret = 1;
 	return (result);	

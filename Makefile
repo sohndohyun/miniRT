@@ -23,7 +23,8 @@ SRCS=	vector3_util.c \
 		solid_color.c \
 		checker.c \
 		dulight.c \
-		plane.c
+		plane.c \
+		triangle.c
 
 OBJS=${SRCS:.c=.o}
 
