@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   square.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/04 17:02:08 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/05 03:09:14 by dsohn            ###   ########.fr       */
+/*   Created: 2020/12/02 04:19:51 by dsohn             #+#    #+#             */
+/*   Updated: 2020/12/02 14:44:12 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+#ifndef SQUARE_H
+# define SQUARE_H
 
-#include "vector3.h"
+# include "hittable.h"
+# include "material.h"
 
-typedef struct	s_ray
+typedef struct	s_square
 {
-	t_vector3	orig;
-	t_vector3	dir;
-}				t_ray;
+	t_vector3	center;
+	t_vector3	face;
+	double		side;
+	t_material	*mat;
+}				t_square;
 
-t_ray			ray_init(t_vector3 orig, t_vector3 dir);
-t_vector3		ray_at(t_ray ray, double t);
-int				ray_plane_t(t_ray ray, t_ray plane, double *t);
+t_result		square_hit(void *obj, t_ray r, double t_min, double t_max);
+t_hittable		*square_alloc(t_vector3 center, t_vector3 face, double side, t_material *mat);
+void			square_free(void *square);
 
 #endif

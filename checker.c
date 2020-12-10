@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 21:07:44 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/30 16:14:58 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/09 18:53:36 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vector3		checker_value(void *obj, double u, double v, t_vector3 point)
 	ch = (t_checker*)obj;
 	a = clamp(u, 0.0, 1.0) * ch->size;
     b = (1.0 - clamp(v, 0.0, 1.0)) * ch->size;
-	if (a % 2 != b % 2)
+	if ((a + b) % 2)
 		return (ch->odd->value(ch->odd->obj, u, v, point));
 	else 
 		return (ch->even->value(ch->even->obj, u, v, point));

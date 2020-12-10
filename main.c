@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/30 21:26:41 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/11 04:08:24 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 #include "dulight.h"
 #include "plane.h"
 #include "triangle.h"
+#include "square.h"
+#include "cylinder.h"
 #include <time.h>
 #include <stdio.h>
 
@@ -32,17 +34,13 @@
 
 void sample_scene(t_scene *scene)
 {
-	scene_add(scene, plane_alloc(vector3_init(1000, 0, 1000), vector3_init(0, 1, 0), 
-		lambertian_alloc(checker_alloc(vector3_init(1.0, 0.5, 0.5), vector3_init(0.5, 0.5, 1.0), 2.2))));
-//	scene_add(scene, plane_alloc(vector3_init(-2, 0, 0), vector3_init(1, 0, 0), 
-//		lambertian_alloc(solid_color_alloc(vector3_init(0, 0.5, 0)))));
-	scene_add(scene, triangle_alloc(vector3_init(2, 1, 2), vector3_init(2, 1, -2), vector3_init(-2, 1, 0), 
-		lambertian_alloc(solid_color_alloc(vector3_init(0.3, 1.0, 1.0)))));
-	scene_add(scene, plane_alloc(vector3_init(30, 2, 3), vector3_init(1, 0, 0), dulight_alloc(solid_color_alloc(vector3_init(1, 1, 1)))));
-	scene_add(scene, sphere_alloc(vector3_init(2, 1, 2), 0.2, lambertian_alloc(solid_color_alloc(vector3_random_range(0, 1)))));
-	scene_add(scene, sphere_alloc(vector3_init(2, 1, -2), 0.2, lambertian_alloc(solid_color_alloc(vector3_random_range(0, 1)))));
-	scene_add(scene, sphere_alloc(vector3_init(-2, 1, 0), 0.2, lambertian_alloc(solid_color_alloc(vector3_random_range(0, 1)))));
-	scene->background = vector3_init(0, 0, 0);
+	scene_add(scene, plane_alloc(vector3_init(0, 0, 0), vector3_init(0, 1, 0), 
+		lambertian_alloc(checker_alloc(vector3_init(1.0, 0.5, 0.5), vector3_init(0.5, 0.5, 1.0), 2))));
+	scene_add(scene, cylinder_alloc(ray_init(vector3_init(0, 1.4, 2), vector3_init(1, 1, 1)), 1, 2, 
+		lambertian_alloc(checker_alloc(vector3_init(0.5, 0.6, 0.99), vector3_init(0.99, 0.99, 0.99), 4))));
+	scene_add(scene, sphere_alloc(vector3_init(0, 1.4, -2), 1, 
+		lambertian_alloc(checker_alloc(vector3_init(0.5, 0.6, 0.99), vector3_init(0.99, 0.99, 0.99), 4))));
+	scene->background = vector3_init(0.5, 0.7, 1.0);
 }
 
 void random_scene(t_scene *scene)

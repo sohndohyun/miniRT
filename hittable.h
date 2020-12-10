@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hittable.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 20:44:29 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/23 20:12:09 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/02 15:03:51 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ typedef struct			s_hittable
 
 void					hittable_free(void *hittable);
 void					result_set_face_normal(t_result *result, t_ray ray, t_vector3 outward_normal);
+t_vector3				compute_primary_dir(t_vector3 n);
 
 #endif

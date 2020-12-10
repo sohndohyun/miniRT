@@ -7,6 +7,7 @@ SRCS=	vector3_util.c \
 		vector3_util1.c \
 		vector3_util2.c \
 		vector3_util3.c \
+		vector3_util4.c \
 		sphere.c \
 		ray.c \
 		hittable.c \
@@ -24,7 +25,9 @@ SRCS=	vector3_util.c \
 		checker.c \
 		dulight.c \
 		plane.c \
-		triangle.c
+		triangle.c \
+		square.c \
+		cylinder.c 
 
 OBJS=${SRCS:.c=.o}
 
@@ -35,7 +38,7 @@ $(OBJS): $(SRCS)
 
 $(NAME): libftdo $(OBJS)
 	cp $(LIBFT) $(MINILIB)
-	$(CC) -g $(FLAG) -I. $(MINILIB) $(OBJS) main.c libmlx.dylib -o $(NAME)
+	$(CC) $(FLAG) -I. $(MINILIB) $(OBJS) main.c libmlx.dylib -o $(NAME)
 
 libftdo:
 	$(MAKE) -C ./libft bonus
