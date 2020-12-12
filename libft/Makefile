@@ -20,6 +20,7 @@ SRCS = ft_bzero.c \
 		ft_strtrim.c \
 		ft_substr.c \
 		ft_atoi.c \
+		ft_atod.c \
 		ft_isalnum.c \
 		ft_isalpha.c \
 		ft_isascii.c \
