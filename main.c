@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/18 22:51:37 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 04:02:05 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 
 #define SAMPLE_PER_PIXEL 2048
 #define MAX_DEPTH 32
-
-void render_screen(t_mlx *mlx)
-{
-	scene_render(mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
-}
 
 int	key_hook(int key, void *param)
 {
@@ -34,7 +28,8 @@ int	key_hook(int key, void *param)
 	{
 		lst = mlx->scene->camera_lst;
 		mlx->scene->camera_no = (mlx->scene->camera_no + 1) % ft_lstsize(lst);
-		render_screen(mlx);
+		scene_render(mlx);
+		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	}
 	return (0);
 }
@@ -43,6 +38,16 @@ int	exit_program(void)
 {
 	exit(0);
 	return (0);
+}
+
+void clampscreensize(t_mlx *mlx)
+{
+	int w;
+	int h;
+
+	mlx_get_screen_size(mlx->mlx, &w, &h);
+	mlx->scene->screen_width = mlx->scene->screen_width > w ? w : mlx->scene->screen_width;
+	mlx->scene->screen_height = mlx->scene->screen_height > h ? h : mlx->scene->screen_height;
 }
 
 int main(int argc, char** argv)
@@ -58,11 +63,13 @@ int main(int argc, char** argv)
 	scene.max_depth = MAX_DEPTH;
 	scene.camera_no = 0;
 	readrt(&scene, argv[1]);
+	clampscreensize(&mlx);
 	mlx.mlx = mlx_init();
 	mlx.win = mlx_new_window(mlx.mlx, scene.screen_width, scene.screen_height, "miniRT");
 	mlx.img = mlx_new_image(mlx.mlx, scene.screen_width, scene.screen_height);
 	mlx.addr = mlx_get_data_addr(mlx.img, &mlx.bpp, &mlx.line, &mlx.endian);
-	render_screen(&mlx);
+	scene_render(&mlx);
+	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
 	if (argc == 3 && ft_strncmp(argv[2], "--save", 6) == 0)
 		export_bmp("miniRT.bmp", &mlx);
 	else

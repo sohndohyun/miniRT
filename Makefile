@@ -49,7 +49,6 @@ $(NAME): $(OBJS)
 
 clean:
 	$(MAKE) -C ./libft clean
-	$(MAKE) -C ./minilibx_mms clean
 	rm -f $(OBJS)
 	rm -f $(MINILIB)
 fclean:
@@ -61,4 +60,6 @@ fclean:
 	rm -f $(NAME)
 	rm -f $(MINILIB)
 re: fclean all
+norm: 
+	norminette $(SRCS)
 .PHONY: all clean fclean re bonus

@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 22:50:38 by dsohn             #+#    #+#             */
-/*   Updated: 2020/09/30 18:00:55 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 02:52:43 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,17 @@ char		**ft_split(const char *s1, char c)
 		s1 += blen;
 	}
 	return (result);
+}
+
+
+int			ft_split_cnt(char **line)
+{
+	int i;
+
+	if (line == NULL)
+		return (0);
+	i = 0;
+	while (line[i])
+		i++;
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 02:15:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/15 23:26:50 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 03:26:15 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft/libft.h"
 #include <math.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 double		vector3_angle(t_vector3 a, t_vector3 b)
 {
@@ -60,6 +61,11 @@ t_vector3	atov(const char *str)
 
 	i = 0;
 	s = ft_split(str, ',');
+	if (ft_split_cnt(s) < 3)
+	{
+		write(1, "Error\n", 6);
+		exit(0);
+	}
 	temp = vector3_init(ft_atod(s[0]), ft_atod(s[1]), ft_atod(s[2]));
 	while (s[i])
 		free(s[i++]);

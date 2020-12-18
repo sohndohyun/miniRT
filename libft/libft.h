@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:23:51 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/18 22:49:55 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 02:45:16 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char			*ft_substr(const char *s, unsigned int start, size_t len);
 char			*ft_strjoin(const char *s1, const char *s2);
 char			*ft_strtrim(const char *s1, const char *set);
 char			**ft_split(const char *s1, char c);
+int				ft_split_cnt(char **line);
 char			*ft_itoa(int n);
 char			*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 void			ft_putchar_fd(char c, int fd);
