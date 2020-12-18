@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readrt.h                                           :+:      :+:    :+:   */
+/*   ft_lstat.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/12 02:58:14 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/17 03:10:39 by dsohn            ###   ########.fr       */
+/*   Created: 2020/12/18 22:47:18 by dsohn             #+#    #+#             */
+/*   Updated: 2020/12/18 23:05:07 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READRT_H
-# define READRT_H
+#include "libft.h"
 
-# include "scene.h"
+void	*ft_lstat(t_list *lst, int at)
+{
+	int i;
 
-int	readrt(t_scene *scene, char *file);
-
-#endif
+	i = 0;
+	while (i < at && lst)
+	{
+		i++;
+		lst = lst->next;
+	}
+	if (lst)
+		return (lst->content);
+	else
+		return (NULL);
+}

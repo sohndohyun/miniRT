@@ -6,12 +6,14 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 02:15:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/11 04:07:12 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/15 23:26:50 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector3.h"
+#include "libft/libft.h"
 #include <math.h>
+#include <stdlib.h>
 
 double		vector3_angle(t_vector3 a, t_vector3 b)
 {
@@ -48,4 +50,24 @@ t_vector3	vector3_rotate_z(t_vector3 v, double angle)
 	v.x = x;
 	v.y = y;
 	return (v);
+}
+
+t_vector3	atov(const char *str)
+{
+	t_vector3 temp;
+	char **s;
+	int i;
+
+	i = 0;
+	s = ft_split(str, ',');
+	temp = vector3_init(ft_atod(s[0]), ft_atod(s[1]), ft_atod(s[2]));
+	while (s[i])
+		free(s[i++]);
+	free(s);
+	return (temp);
+}
+
+t_vector3	atocolor(const char *str)
+{
+	return (vector3_div(atov(str), 255.0));
 }

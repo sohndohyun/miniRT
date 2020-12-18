@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 00:19:35 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/19 20:16:46 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/18 22:21:08 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ typedef struct	s_camera
 void			camera_setting(t_camera *camera, double vfov, t_vector3 camera_set);
 t_ray			camera_getray(t_camera *camera, double s, double t);
 void			camera_transform(t_camera *camera, t_vector3 from, t_vector3 at, t_vector3 vup);
+void			camera_free(void *camera);
 
 #endif

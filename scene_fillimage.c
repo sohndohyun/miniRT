@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   scene_fillimage.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 22:00:52 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/25 17:19:02 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/18 22:51:20 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
 #include "minirt.h"
+#include <stdio.h>
 
 static unsigned int vtoc(t_vector3 v, int samples_per_pixel)
 {
@@ -58,7 +59,7 @@ static void set_color(unsigned int *dst, t_scene *scene, int i, int j)
 	k = 0;
 	while (k < scene->sample_per_pixel)
 	{
-		pixel_color = vector3_add(pixel_color, ray_color(camera_getray(&scene->cam,
+		pixel_color = vector3_add(pixel_color, ray_color(camera_getray(scene->cam,
 			(random_double() + i) / (scene->screen_width - 1),
 			(random_double() + j) / (scene->screen_height - 1)), scene, scene->max_depth));
 		k++;
@@ -66,21 +67,21 @@ static void set_color(unsigned int *dst, t_scene *scene, int i, int j)
 	*dst = vtoc(pixel_color, scene->sample_per_pixel);
 }
 
-void scene_fillimage(t_scene *scene, t_image *img, int th_count, int th_no)
+void scene_fillimage(t_mlx *mlx, int th_count, int th_no)
 {
 	int i;
 	int j;
 	int end;
 
-	i = scene->screen_width * th_no / th_count;
-	end = scene->screen_width * (th_no + 1) / th_count;
+	i = mlx->scene->screen_width * th_no / th_count;
+	end = mlx->scene->screen_width * (th_no + 1) / th_count;
 	while (i < end)
 	{
 		j = 0;
-		while (j < scene->screen_height)
+		while (j < mlx->scene->screen_height)
 		{
-			set_color((unsigned int*)(img->addr + 
-				(scene->screen_height - j - 1) * img->line + i * (img->bpp / 8)), scene, i, j);
+			set_color((unsigned int*)(mlx->addr + 
+				(mlx->scene->screen_height - j - 1) * mlx->line + i * (mlx->bpp / 8)), mlx->scene, i, j);
 			j++;
 		}
 		i++;

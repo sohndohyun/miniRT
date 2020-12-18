@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 00:19:37 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/19 20:31:53 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/18 22:55:28 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,12 @@ t_ray	camera_getray(t_camera *c, double s, double t)
 			vector3_sbtr(vector3_mult(c->vertical, t), c->origin)
 		), offset)
 	));
+}
+
+void	camera_free(void *camera)
+{
+	t_camera *cam;
+
+	cam = camera;
+	free(cam);
 }

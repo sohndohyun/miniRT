@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 01:31:58 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/29 02:03:05 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/18 22:21:21 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_result scene_hit(t_scene *scene, t_ray r, double t_min, double t_max)
 	result.ret = 0;
 	closet = t_max;
 	it = scene->hittable_lst;
-	while (it != NULL)
+	while (it)
 	{
 		obj = it->content;
 		current = obj->hit(obj->object, r, t_min, closet);
@@ -33,6 +33,7 @@ t_result scene_hit(t_scene *scene, t_ray r, double t_min, double t_max)
 			closet = current.t;
 			result = current;
 		}
+		
 		it = it->next;
 	}
 	return (result);
@@ -46,4 +47,5 @@ void scene_add(t_scene *scene, t_hittable *object)
 void scene_free(t_scene *scene)
 {
 	ft_lstclear(&scene->hittable_lst, hittable_free);
+	ft_lstclear(&scene->camera_lst, camera_free);
 }

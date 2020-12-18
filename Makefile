@@ -1,8 +1,9 @@
 NAME=miniRT
 CC=gcc
 FLAG=-Wall -Wextra -Werror
-MINILIB=miniLIB
 LIBFT=./libft/libft.a
+MINILIBX=./minilibx_mms/libmlx.dylib
+RTLIB=rtlib.a
 SRCS=	vector3_util.c \
 		vector3_util1.c \
 		vector3_util2.c \
@@ -15,6 +16,8 @@ SRCS=	vector3_util.c \
 		scene.c \
 		scene_fillimage.c \
 		scene_render.c \
+		scene_setscene.c \
+		export_bmp.c \
 		minirt.c \
 		camera.c \
 		rand.c \
@@ -28,7 +31,7 @@ SRCS=	vector3_util.c \
 		triangle.c \
 		square.c \
 		cylinder.c \
-		readrt.c
+		readrt.c 
 
 OBJS=${SRCS:.c=.o}
 
@@ -37,21 +40,25 @@ bonus: all
 $(OBJS): $(SRCS)
 	$(CC) $(FLAG) -I. -I./libft/. -c $(SRCS)
 
-$(NAME): libftdo $(OBJS)
-	cp $(LIBFT) $(MINILIB)
-	$(CC) $(FLAG) -I. $(MINILIB) $(OBJS) main.c libmlx.dylib -o $(NAME)
-
-libftdo:
+$(NAME): $(OBJS)
 	$(MAKE) -C ./libft bonus
+	$(MAKE) -C ./minilibx_mms
+	cp $(LIBFT) _libft.a
+	cp $(MINILIBX) _libmlx.dylib
+	$(CC) $(FLAG) -I. -I./libft/. _libft.a _libmlx.dylib $(OBJS) main.c  -o $(NAME)
 
 clean:
 	$(MAKE) -C ./libft clean
+	$(MAKE) -C ./minilibx_mms clean
 	rm -f $(OBJS)
 	rm -f $(MINILIB)
 fclean:
 	$(MAKE) -C ./libft fclean
+	$(MAKE) -C ./minilibx_mms clean
+	rm -f _libft.a
+	rm -f _libmlx.dylib
 	rm -f $(OBJS)
 	rm -f $(NAME)
 	rm -f $(MINILIB)
 re: fclean all
-.PHONY: all clean fclean re libftdo bonus
+.PHONY: all clean fclean re bonus

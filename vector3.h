@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 20:20:00 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/11 03:06:08 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/15 03:14:55 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ t_vector3		vector3_refract(t_vector3 uv, t_vector3 n, double etai_over_etat);
 double			vector3_angle(t_vector3 a, t_vector3 b);
 t_vector3		vector3_rotate_x(t_vector3 v, double angle);
 t_vector3		vector3_rotate_z(t_vector3 v, double angle);
+t_vector3		atov(const char *str);
+t_vector3		atocolor(const char *str);
 
 #endif

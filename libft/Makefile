@@ -42,7 +42,8 @@ SRCS = ft_bzero.c \
 		ft_lstlast.c \
 		ft_lstmap.c \
 		ft_lstnew.c \
-		ft_lstsize.c 
+		ft_lstsize.c \
+		ft_lstat.c
 OBJS = ${SRCS:.c=.o}
 
 all: $(NAME)
