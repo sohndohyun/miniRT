@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 02:56:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 03:30:09 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 18:31:34 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	scene_setamblight(t_scene *scene, double range, t_vector3 color)
 	scene->background = vector3_mult(color, range);
 }
 
-void	scene_setcamera(t_scene *scene, t_vector3 pos, t_vector3 face, double fov)
+void	scene_setcamera(
+	t_scene *scene, t_vector3 pos, t_vector3 face, double fov)
 {
 	t_camera *cam;
 
@@ -34,4 +35,3 @@ void	scene_setcamera(t_scene *scene, t_vector3 pos, t_vector3 face, double fov)
 	camera_transform(cam, pos, vector3_add(pos, face), vector3_init(0, 1, 0));
 	ft_lstadd_back(&scene->camera_lst, ft_lstnew(cam));
 }
-

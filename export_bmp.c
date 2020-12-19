@@ -6,15 +6,15 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 20:03:44 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/17 21:13:37 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 16:30:05 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
-#include <fcntl.h> 
+#include <fcntl.h>
 #include <unistd.h>
 
-# define HEADER_SIZE 122
+#define HEADER_SIZE 122
 
 void	fill_bmp(char **data, t_mlx *mlx)
 {

@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 02:15:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 03:26:15 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 20:50:01 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ t_vector3	vector3_rotate_z(t_vector3 v, double angle)
 
 t_vector3	atov(const char *str)
 {
-	t_vector3 temp;
-	char **s;
-	int i;
+	t_vector3	temp;
+	char		**s;
+	int			i;
 
 	i = 0;
 	s = ft_split(str, ',');

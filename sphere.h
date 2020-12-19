@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 21:16:34 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/28 15:58:35 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 18:50:19 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,20 @@ typedef struct	s_sphere
 	t_material	*mat;
 }				t_sphere;
 
-t_result		sphere_hit(void *obj, t_ray r, double t_min, double t_max);
-t_hittable		*sphere_alloc(t_vector3 center, double radius, t_material *mat);
+typedef struct	s_fvalue
+{
+	t_vector3	oc;
+	double		a;
+	double		half_b;
+	double		c;
+	double		disc;
+	double		sqrtd;
+}				t_fvalue;
+
+t_result		sphere_hit(void *obj, t_ray r, \
+			double t_min, double t_max);
+t_hittable		*sphere_alloc(t_vector3 center, \
+			double radius, t_material *mat);
 void			sphere_free(void *sphere);
 
 #endif

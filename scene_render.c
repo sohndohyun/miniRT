@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:10:01 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/18 22:50:57 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 18:30:36 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,7 @@
 
 #define THREAD_MAX 10
 
-typedef struct	s_param
-{
-	t_mlx	*mlx;
-	int		no;
-	int		cnt;
-}				t_param;
-
-static void *my_thread_main(void *param)
+static void		*my_thread_main(void *param)
 {
 	t_param *p;
 
@@ -35,11 +28,11 @@ static void *my_thread_main(void *param)
 	return (NULL);
 }
 
-void scene_render(t_mlx *mlx)
+void			scene_render(t_mlx *mlx)
 {
-	int i;
-	t_param params[THREAD_MAX];
-	pthread_t p_thread[THREAD_MAX];
+	int			i;
+	t_param		params[THREAD_MAX];
+	pthread_t	p_thread[THREAD_MAX];
 
 	i = 0;
 	mlx->scene->cam = ft_lstat(mlx->scene->camera_lst, mlx->scene->camera_no);
@@ -48,7 +41,8 @@ void scene_render(t_mlx *mlx)
 		params[i].no = i;
 		params[i].cnt = THREAD_MAX;
 		params[i].mlx = mlx;
-		if (pthread_create(&p_thread[i], NULL, my_thread_main, (void*)&params[i]) < 0)
+		if (pthread_create(&p_thread[i], NULL,
+			my_thread_main, (void*)&params[i]) < 0)
 		{
 			write(1, "thread create error \n", 21);
 			exit(0);

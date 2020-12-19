@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 21:56:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/29 01:44:01 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 16:32:16 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 #include "hittable.h"
 #include <stdio.h>
 
-t_ray			lambertian_scatter(void *obj, t_ray rin, t_result *result, t_vector3 *color)
+t_ray			lambertian_scatter(
+	void *obj, t_ray rin, t_result *result, t_vector3 *color)
 {
-	t_ray scattered;
-	t_lambertian *lam;
-	t_vector3 scat_dir;
+	t_ray			scattered;
+	t_lambertian	*lam;
+	t_vector3		scat_dir;
 
 	scattered = rin;
 	lam = obj;
@@ -27,14 +28,15 @@ t_ray			lambertian_scatter(void *obj, t_ray rin, t_result *result, t_vector3 *co
 	if (vector3_near_zero(scat_dir))
 		scat_dir = result->norm;
 	scattered = ray_init(result->p, scat_dir);
-	(*color) = lam->albedo->value(lam->albedo->obj, result->u, result->v, result->p);
+	(*color) = lam->albedo->value(
+		lam->albedo->obj, result->u, result->v, result->p);
 	return (scattered);
 }
 
 t_material		*lambertian_alloc(t_texture *albedo)
 {
-	t_lambertian *lam;
-	t_material *mat;
+	t_lambertian	*lam;
+	t_material		*mat;
 
 	lam = (t_lambertian*)malloc(sizeof(t_lambertian));
 	lam->albedo = albedo;

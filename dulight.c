@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dulight.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 16:01:23 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/25 16:41:53 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 15:36:02 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_material		*dulight_alloc(t_texture *a)
 {
-	t_dulight *light;
-	t_material *mat;
+	t_dulight	*light;
+	t_material	*mat;
 
 	light = malloc(sizeof(t_dulight));
 	light->emit = a;
@@ -27,7 +27,8 @@ t_material		*dulight_alloc(t_texture *a)
 	return (mat);
 }
 
-t_ray			dulight_scatter(void *obj, t_ray rin, t_result *result, t_vector3 *color)
+t_ray			dulight_scatter(
+	void *obj, t_ray rin, t_result *result, t_vector3 *color)
 {
 	t_dulight *light;
 

@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 03:14:16 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/05 01:36:13 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 13:50:34 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,17 @@ typedef struct	s_cylinder
 	t_material	*mat;
 }				t_cylinder;
 
+typedef struct	s_cylval
+{
+	double		a;
+	double		half_b;
+	double		c;
+	double		disc;
+}				t_cylval;
+
 t_result		cylinder_hit(void *obj, t_ray r, double t_min, double t_max);
-t_hittable		*cylinder_alloc(t_ray r, double radius, double height, t_material *mat);
+t_hittable		*cylinder_alloc(t_ray r, double radius, \
+			double height, t_material *mat);
 void			cylinder_free(void *cylinder);
 
 #endif

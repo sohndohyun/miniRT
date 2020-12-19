@@ -29,8 +29,10 @@ SRCS=	vector3_util.c \
 		dulight.c \
 		plane.c \
 		triangle.c \
+		triangle2.c \
 		square.c \
 		cylinder.c \
+		cylinder2.c \
 		readrt.c 
 
 OBJS=${SRCS:.c=.o}

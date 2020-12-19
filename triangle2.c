@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dulight.h                                          :+:      :+:    :+:   */
+/*   triangle2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 15:28:32 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 04:34:05 by dsohn            ###   ########.fr       */
+/*   Created: 2020/12/19 20:03:05 by dsohn             #+#    #+#             */
+/*   Updated: 2020/12/19 20:22:31 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DULIGHT_H
-# define DULIGHT_H
+#include "triangle.h"
 
-# include "material.h"
-# include "texture.h"
-
-typedef struct	s_dulight
+void			triangle_get_uv(double *u, double *v, double denom)
 {
-	t_texture	*emit;
-}				t_dulight;
+	*u = *u / denom;
+	*v = *v / denom;
+}
 
-t_material		*dulight_alloc(t_texture *a);
-t_vector3		dulight_emitted(void *obj, double u, double v, t_vector3 p);
-t_ray			dulight_scatter(void *obj, t_ray rin, \
-			t_result *result, t_vector3 *color);
-void			dulight_free(void *obj);
-
-#endif
+int				pot(t_vector3 face, t_vector3 edge, t_vector3 vp, double *uv)
+{
+	if ((*uv = vector3_dot(face, vector3_cross(edge, vp))) < 0)
+		return (0);
+	return (1);
+}

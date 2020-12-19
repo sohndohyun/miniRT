@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/15 04:20:29 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/15 04:26:32 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 17:11:39 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 unsigned int g_next = 1;
 
-void ft_srand(unsigned int seed)
+void	ft_srand(unsigned int seed)
 {
 	g_next = seed;
 }
 
-int ft_rand()
+int		ft_rand(void)
 {
-	return ((g_next = g_next * 1103515245 + 12345) % ((unsigned int)RAND_MAX + 1));
+	return ((g_next = g_next * 1103515245 + 12345)
+		% ((unsigned int)RAND_MAX + 1));
 }

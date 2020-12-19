@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 02:58:17 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 03:52:15 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 17:15:39 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,38 +30,41 @@
 
 #define READ_MAX 2048
 
-void		error_end()
+void		error_end(void)
 {
 	write(1, "Error\n", 6);
 	exit(0);
 }
 
-static void add_object_to_scene(t_scene *scene, char **line, int linelen, int split_no)
+static void	add_object_to_scene(
+	t_scene *scene, char **line, int linelen, int split_no)
 {
 	if (ft_strncmp(line[0], "l", linelen) == 0 && split_no > 3)
-		scene_add(scene, sphere_alloc(atov(line[1]), ft_atod(line[2]) * 3, 
+		scene_add(scene, sphere_alloc(atov(line[1]), ft_atod(line[2]) * 3,
 			dulight_alloc(solid_color_alloc(atocolor(line[3])))));
 	else if (ft_strncmp(line[0], "sp", linelen) == 0 && split_no > 3)
-		scene_add(scene, sphere_alloc(atov(line[1]), ft_atod(line[2]), 
+		scene_add(scene, sphere_alloc(atov(line[1]), ft_atod(line[2]),
 			lambertian_alloc(solid_color_alloc(atocolor(line[3])))));
 	else if (ft_strncmp(line[0], "pl", linelen) == 0 && split_no > 3)
 		scene_add(scene, plane_alloc(atov(line[1]), atov(line[2]),
 			lambertian_alloc(solid_color_alloc(atocolor(line[3])))));
 	else if (ft_strncmp(line[0], "sq", linelen) == 0 && split_no > 4)
-		scene_add(scene, square_alloc(atov(line[1]), atov(line[2]), ft_atod(line[3]), 
+		scene_add(scene, square_alloc(
+			atov(line[1]), atov(line[2]), ft_atod(line[3]),
 			lambertian_alloc(solid_color_alloc(atocolor(line[4])))));
 	else if (ft_strncmp(line[0], "cy", linelen) == 0 && split_no > 5)
-		scene_add(scene, cylinder_alloc(ray_init(atov(line[1]), atov(line[2])), 
+		scene_add(scene, cylinder_alloc(ray_init(atov(line[1]), atov(line[2])),
 			ft_atod(line[3]), ft_atod(line[4]),
 			lambertian_alloc(solid_color_alloc(atocolor(line[5])))));
 	else if (ft_strncmp(line[0], "tr", linelen) == 0 && split_no > 4)
-		scene_add(scene, triangle_alloc(atov(line[1]), atov(line[2]), atov(line[3]),
+		scene_add(scene, triangle_alloc(
+			atov(line[1]), atov(line[2]), atov(line[3]),
 			lambertian_alloc(solid_color_alloc(atocolor(line[4])))));
 	else
 		error_end();
 }
 
-static void readline(t_scene *scene, char **line)
+static void	readline(t_scene *scene, char **line)
 {
 	int i;
 	int j;
@@ -82,12 +85,12 @@ static void readline(t_scene *scene, char **line)
 	free(line);
 }
 
-int	readrt(t_scene *scene, char *file)
+int			readrt(t_scene *scene, char *file)
 {
-	int fd;
-	char buf[READ_MAX];
-	char **lines;
-	int i;
+	int		fd;
+	char	buf[READ_MAX];
+	char	**lines;
+	int		i;
 
 	if ((fd = open(file, O_RDONLY)) <= 0)
 		return (0);

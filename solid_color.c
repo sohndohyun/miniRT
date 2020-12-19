@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solid_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 20:01:07 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/23 20:50:33 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 18:37:35 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 t_texture		*solid_color_alloc(t_vector3 color)
 {
-	t_solid_color *sc;
-	t_texture *result;
+	t_solid_color	*sc;
+	t_texture		*result;
 
 	sc = (t_solid_color*)malloc(sizeof(t_solid_color));
 	sc->color_value = color;
@@ -27,7 +27,8 @@ t_texture		*solid_color_alloc(t_vector3 color)
 	return (result);
 }
 
-t_vector3		solid_color_value(void *obj, double u, double v, t_vector3 point)
+t_vector3		solid_color_value(void *obj,
+	double u, double v, t_vector3 point)
 {
 	t_solid_color *sc;
 

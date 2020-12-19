@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 17:24:22 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/09 05:03:48 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 17:11:59 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int				ray_plane_t(t_ray ray, t_ray plane, double *t)
 
 	if ((denom = vector3_dot(plane.dir, ray.dir)) == 0)
 		return (0);
-	*t = vector3_dot(vector3_sbtr(plane.orig, ray.orig), vector3_norm(plane.dir)) / denom;
+	*t = vector3_dot(vector3_sbtr(plane.orig, ray.orig),
+		vector3_norm(plane.dir)) / denom;
 	return (1);
 }

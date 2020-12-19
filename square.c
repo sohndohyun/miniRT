@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 04:28:41 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/06 01:52:20 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 18:52:38 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,25 @@ static void		square_get_uv(double *u, double *v, double side)
 
 t_result		square_hit(void *obj, t_ray r, double t_min, double t_max)
 {
-	t_square *square;
-	t_result result;
-	double denom;
+	t_square	*square;
+	t_result	result;
+	double		denom;
 
 	result.ret = 0;
 	square = obj;
 	if ((denom = vector3_dot(square->face, r.dir)) == 0)
 		return (result);
-	result.t = vector3_dot(vector3_sbtr(square->center, r.orig), vector3_norm(square->face)) / denom;
+	result.t = vector3_dot(vector3_sbtr(square->center, r.orig),
+		vector3_norm(square->face)) / denom;
 	if (result.t < t_min || t_max < result.t)
 		return (result);
 	result.p = ray_at(r, result.t);
 	result_set_face_normal(&result, r, square->face);
-	square_get_xy(vector3_sbtr(square->center, result.p), square->face, &result.u, &result.v);
+	square_get_xy(vector3_sbtr(square->center, result.p),
+		square->face, &result.u, &result.v);
 	denom = square->side / 2;
-	if ((result.u < -denom || denom < result.u) || (result.v < -denom || denom < result.v))
+	if ((result.u < -denom || denom < result.u) ||
+		(result.v < -denom || denom < result.v))
 		return (result);
 	square_get_uv(&result.u, &result.v, denom);
 	result.mat = square->mat;
@@ -54,10 +57,11 @@ t_result		square_hit(void *obj, t_ray r, double t_min, double t_max)
 	return (result);
 }
 
-t_hittable		*square_alloc(t_vector3 center, t_vector3 face, double side, t_material *mat)
+t_hittable		*square_alloc(
+	t_vector3 center, t_vector3 face, double side, t_material *mat)
 {
-	t_square *square;
-	t_hittable *hit;
+	t_square	*square;
+	t_hittable	*hit;
 
 	square = malloc(sizeof(t_square));
 	square->center = center;

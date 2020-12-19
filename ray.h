@@ -6,14 +6,14 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 17:02:08 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/05 03:09:14 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 04:41:58 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAY_H
 # define RAY_H
 
-#include "vector3.h"
+# include "vector3.h"
 
 typedef struct	s_ray
 {

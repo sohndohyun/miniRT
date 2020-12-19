@@ -6,20 +6,21 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 01:31:58 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/18 22:21:21 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 18:36:19 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
-#include <stdio.h>
+#include "readrt.h"
 
-t_result scene_hit(t_scene *scene, t_ray r, double t_min, double t_max)
+t_result	scene_hit(t_scene *scene,
+	t_ray r, double t_min, double t_max)
 {
-	t_list *it;
-	t_hittable *obj;
-	t_result result;
-	t_result current;
-	double closet;
+	t_list		*it;
+	t_hittable	*obj;
+	t_result	result;
+	t_result	current;
+	double		closet;
 
 	result.ret = 0;
 	closet = t_max;
@@ -33,19 +34,28 @@ t_result scene_hit(t_scene *scene, t_ray r, double t_min, double t_max)
 			closet = current.t;
 			result = current;
 		}
-		
 		it = it->next;
 	}
 	return (result);
 }
 
-void scene_add(t_scene *scene, t_hittable *object)
+void		scene_add(t_scene *scene, t_hittable *object)
 {
 	ft_lstadd_back(&scene->hittable_lst, ft_lstnew(object));
 }
-  
-void scene_free(t_scene *scene)
+
+void		scene_free(t_scene *scene)
 {
 	ft_lstclear(&scene->hittable_lst, hittable_free);
 	ft_lstclear(&scene->camera_lst, camera_free);
+}
+
+void		scene_init(t_scene *scene,
+	int sample_per_pixel, int max_depth, char *str)
+{
+	scene->hittable_lst = NULL;
+	scene->sample_per_pixel = sample_per_pixel;
+	scene->max_depth = max_depth;
+	scene->camera_no = 0;
+	readrt(scene, str);
 }

@@ -6,18 +6,19 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 20:39:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/07 03:04:45 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 17:10:52 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "plane.h"
 #include <stdio.h>
 
-static void		plane_get_uv(t_vector3 p, t_vector3 n, double *u, double *v)
+static void		plane_get_uv(
+		t_vector3 p, t_vector3 n, double *u, double *v)
 {
-	t_vector3 uv;
-	t_vector3 vv;
-	int a;
+	t_vector3	uv;
+	t_vector3	vv;
+	int			a;
 
 	uv = compute_primary_dir(n);
 	vv = vector3_cross(n, uv);
@@ -33,8 +34,8 @@ static void		plane_get_uv(t_vector3 p, t_vector3 n, double *u, double *v)
 
 t_result		plane_hit(void *obj, t_ray r, double t_min, double t_max)
 {
-	t_plane *plane;
-	t_result result;
+	t_plane		*plane;
+	t_result	result;
 
 	result.ret = 0;
 	plane = obj;
@@ -44,16 +45,17 @@ t_result		plane_hit(void *obj, t_ray r, double t_min, double t_max)
 		return (result);
 	result.p = ray_at(r, result.t);
 	result_set_face_normal(&result, r, plane->face);
-	plane_get_uv(vector3_sbtr(plane->orig, result.p), plane->face, &result.u, &result.v);
+	plane_get_uv(vector3_sbtr(
+		plane->orig, result.p), plane->face, &result.u, &result.v);
 	result.mat = plane->mat;
 	result.ret = 1;
-	return (result);	
+	return (result);
 }
 
 t_hittable		*plane_alloc(t_vector3 orig, t_vector3 face, t_material *mat)
 {
-	t_plane *plane;
-	t_hittable *hit;
+	t_plane		*plane;
+	t_hittable	*hit;
 
 	plane = (t_plane*)malloc(sizeof(t_plane));
 	plane->face = face;
@@ -75,4 +77,3 @@ void			plane_free(void *plane)
 	free(temp->mat);
 	free(temp);
 }
-

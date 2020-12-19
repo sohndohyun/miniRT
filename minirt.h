@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsohn <dsohn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 00:17:10 by dsohn             #+#    #+#             */
-/*   Updated: 2020/11/20 22:40:47 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/19 04:41:00 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@
 # include <stdlib.h>
 # include "ray.h"
 # include "vector3.h"
-# include "mlx.h"
+# include "minilibx_mms/mlx.h"
 # include "libft/libft.h"
 # include "hittable.h"
 # include "material.h"
 
 # define PI 3.1415926535898
 
-void ft_srand(unsigned int seed);
-int ft_rand();
-double random_double();
-double random_range(double min, double max);
-double dtor(double d);
-double clamp(double x, double min, double max);
+void	ft_srand(unsigned int seed);
+int		ft_rand();
+double	random_double();
+double	random_range(double min, double max);
+double	dtor(double d);
+double	clamp(double x, double min, double max);
 
 #endif
