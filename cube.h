@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 20:59:27 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/21 18:21:07 by dsohn            ###   ########.fr       */
+/*   Created: 2020/12/21 22:22:15 by dsohn             #+#    #+#             */
+/*   Updated: 2020/12/22 16:32:56 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# define CHECKER_H
+#ifndef CUBE_H
+# define CUBE_H
 
-# include "solid_color.h"
+# include "square.h"
 
-typedef struct	s_checker
-{
-	t_texture	*odd;
-	t_texture	*even;
-	double		size;
-}				t_checker;
-
-t_vector3		checker_value(void *obj, t_result *result);
-void			checker_free(void *obj);
-t_texture		*checker_alloc(t_vector3 c1, t_vector3 c2, double size);
+t_result		cube_hit(void *obj, t_ray r, double t_min, double t_max);
+t_hittable		*cube_alloc(t_vector3 center, double size, t_material *mat);
+void			cube_free(void *cube);
 
 #endif

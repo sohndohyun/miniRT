@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   pyramid.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 20:59:27 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/21 18:21:07 by dsohn            ###   ########.fr       */
+/*   Created: 2020/12/22 17:32:27 by dsohn             #+#    #+#             */
+/*   Updated: 2020/12/22 22:30:45 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# define CHECKER_H
+#ifndef PYRAMID_H
+# define PYRAMID_H
 
-# include "solid_color.h"
+# include "square.h"
+# include "triangle.h"
 
-typedef struct	s_checker
-{
-	t_texture	*odd;
-	t_texture	*even;
-	double		size;
-}				t_checker;
-
-t_vector3		checker_value(void *obj, t_result *result);
-void			checker_free(void *obj);
-t_texture		*checker_alloc(t_vector3 c1, t_vector3 c2, double size);
+t_result		pyramid_hit(void *obj, t_ray r, double t_min, double t_max);
+t_hittable		*pyramid_alloc(t_vector3 center, \
+	double height, double side, t_material *mat);
+void			pyramid_free(void *cube);
 
 #endif

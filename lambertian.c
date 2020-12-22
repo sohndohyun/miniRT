@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 21:56:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 16:32:16 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/21 18:19:14 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ t_ray			lambertian_scatter(
 	if (vector3_near_zero(scat_dir))
 		scat_dir = result->norm;
 	scattered = ray_init(result->p, scat_dir);
-	(*color) = lam->albedo->value(
-		lam->albedo->obj, result->u, result->v, result->p);
+	(*color) = lam->albedo->value(lam->albedo->obj, result);
 	return (scattered);
 }
 

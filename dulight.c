@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 16:01:23 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 15:36:02 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/21 18:18:20 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ t_ray			dulight_scatter(
 	return (rin);
 }
 
-t_vector3		dulight_emitted(void *obj, double u, double v, t_vector3 p)
+t_vector3		dulight_emitted(void *obj, t_result *result)
 {
 	t_dulight *light;
 
 	light = (t_dulight*)obj;
-	return (light->emit->value(light->emit->obj, u, v, p));
+	return (light->emit->value(light->emit->obj, result));
 }
 
 void			dulight_free(void *obj)

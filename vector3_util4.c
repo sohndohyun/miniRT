@@ -6,12 +6,13 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 02:15:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 20:50:01 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/22 16:14:03 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector3.h"
 #include "libft/libft.h"
+#include "minirt.h"
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -21,36 +22,16 @@ double		vector3_angle(t_vector3 a, t_vector3 b)
 	return (acos(vector3_dot(a, b) / (vector3_length(a) * vector3_length(b))));
 }
 
-t_vector3	vector3_rotate_x(t_vector3 v, double angle)
+t_vector3	vector3_aar(t_vector3 v, t_vector3 axis, double angle)
 {
-	double y;
-	double z;
+	double c;
+	double s;
 
-	if (angle < 0)
-		angle += 360.0;
-	else if (angle > 360.0)
-		angle -= 360.0;
-	y = v.y * cos(angle) - v.z * sin(angle);
-	z = v.y * sin(angle) + v.z * cos(angle);
-	v.y = y;
-	v.z = z;
-	return (v);
-}
-
-t_vector3	vector3_rotate_z(t_vector3 v, double angle)
-{
-	double x;
-	double y;
-
-	if (angle < 0)
-		angle += 360.0;
-	else if (angle > 360.0)
-		angle -= 360.0;
-	x = v.x * cos(angle) - v.y * sin(angle);
-	y = v.x * sin(angle) + v.y * cos(angle);
-	v.x = x;
-	v.y = y;
-	return (v);
+	s = sin(angle);
+	c = cos(angle);
+	return (vector3_add(vector3_add(vector3_mult(v, c),
+		vector3_mult(vector3_cross(axis, v), s)),
+		vector3_mult(axis, vector3_dot(axis, v) * (1.0 - c))));
 }
 
 t_vector3	atov(const char *str)

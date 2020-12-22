@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   rainbow.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 20:59:27 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/21 18:21:07 by dsohn            ###   ########.fr       */
+/*   Created: 2020/12/21 17:23:09 by dsohn             #+#    #+#             */
+/*   Updated: 2020/12/22 22:24:16 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# define CHECKER_H
+#include "rainbow.h"
 
-# include "solid_color.h"
-
-typedef struct	s_checker
+t_vector3		rainbow_value(void *obj, t_result *result)
 {
-	t_texture	*odd;
-	t_texture	*even;
-	double		size;
-}				t_checker;
+	obj = NULL;
+	return (vector3_mult(
+		vector3_add(result->norm, vector3_init(1, 1, 1)), 0.5));
+}
 
-t_vector3		checker_value(void *obj, t_result *result);
-void			checker_free(void *obj);
-t_texture		*checker_alloc(t_vector3 c1, t_vector3 c2, double size);
+void			rainbow_free(void *obj)
+{
+	obj = NULL;
+}
 
-#endif
+t_texture		*rainbow_alloc(void)
+{
+	t_texture *te;
+
+	te = (t_texture*)malloc(sizeof(t_texture));
+	te->obj = NULL;
+	te->value = rainbow_value;
+	te->free = rainbow_free;
+	return (te);
+}

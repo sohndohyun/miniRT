@@ -6,11 +6,12 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 04:30:48 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 15:23:50 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/22 22:19:20 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cylinder.h"
+#include <stdio.h>
 
 static void		calculate(t_cylinder *cyl, t_ray r, t_cylval *val)
 {
@@ -46,11 +47,12 @@ static void		cylinder_get_uv(t_result *r,
 {
 	t_vector3	p;
 	double		h;
+	t_vector3	up;
 
+	up = vector3_init(0, 1, 0);
 	h = r->u;
-	p = vector3_rotate_z(vector3_rotate_x(r->norm,
-		30.0 + vector3_angle(vector3_init(0, 1, 0), cyl->face)),
-		30.0 - vector3_angle(vector3_init(1, 0, 0), cyl->face));
+	p = vector3_aar(r->norm, vector3_cross(cyl->face, up),
+		vector3_angle(cyl->face, up));
 	*u = (atan2(-p.z, p.x) + PI) / (PI * 2);
 	*v = h / cyl->height;
 }

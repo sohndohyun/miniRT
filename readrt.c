@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 02:58:17 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 17:15:39 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/21 13:35:53 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 #include "triangle.h"
 #include "square.h"
 #include "cylinder.h"
-#include <stdio.h>
 
 #define READ_MAX 2048
 
@@ -40,7 +39,7 @@ static void	add_object_to_scene(
 	t_scene *scene, char **line, int linelen, int split_no)
 {
 	if (ft_strncmp(line[0], "l", linelen) == 0 && split_no > 3)
-		scene_add(scene, sphere_alloc(atov(line[1]), ft_atod(line[2]) * 3,
+		scene_add(scene, sphere_alloc(atov(line[1]), ft_atod(line[2]) * 2,
 			dulight_alloc(solid_color_alloc(atocolor(line[3])))));
 	else if (ft_strncmp(line[0], "sp", linelen) == 0 && split_no > 3)
 		scene_add(scene, sphere_alloc(atov(line[1]), ft_atod(line[2]),

@@ -6,13 +6,13 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 16:59:22 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/21 13:15:29 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readrt.h"
 
-#define SAMPLE_PER_PIXEL 2048
+#define SAMPLE_PER_PIXEL 100
 #define MAX_DEPTH 32
 
 int		key_hook(int key, void *param)

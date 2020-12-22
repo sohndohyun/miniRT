@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 22:00:52 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 18:23:34 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/21 18:17:32 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ static t_vector3	ray_color(t_ray r, t_scene *scene, int depth)
 	result = scene_hit(scene, r, 0.001, __DBL_MAX__);
 	if (!result.ret)
 		return (scene->background);
-	emitted = result.mat->emitted(
-		result.mat->obj, result.u, result.v, result.p);
+	emitted = result.mat->emitted(result.mat->obj, &result);
 	scattered = result.mat->scatter(
 		result.mat->obj, r, &result, &temp);
 	if (!result.ret)

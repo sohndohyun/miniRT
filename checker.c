@@ -6,25 +6,25 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 21:07:44 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 20:50:53 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/21 18:22:38 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-t_vector3		checker_value(void *obj, double u, double v, t_vector3 point)
+t_vector3		checker_value(void *obj, t_result *result)
 {
 	int			a;
 	int			b;
 	t_checker	*ch;
 
 	ch = (t_checker*)obj;
-	a = clamp(u, 0.0, 1.0) * ch->size;
-	b = (1.0 - clamp(v, 0.0, 1.0)) * ch->size;
+	a = clamp(result->u, 0.0, 1.0) * ch->size;
+	b = (1.0 - clamp(result->v, 0.0, 1.0)) * ch->size;
 	if ((a + b) % 2)
-		return (ch->odd->value(ch->odd->obj, u, v, point));
+		return (ch->odd->value(ch->odd->obj, result));
 	else
-		return (ch->even->value(ch->even->obj, u, v, point));
+		return (ch->even->value(ch->even->obj, result));
 }
 
 void			checker_free(void *obj)

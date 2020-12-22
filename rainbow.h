@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   rainbow.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 20:59:27 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/21 18:21:07 by dsohn            ###   ########.fr       */
+/*   Created: 2020/12/21 16:33:22 by dsohn             #+#    #+#             */
+/*   Updated: 2020/12/21 18:22:52 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# define CHECKER_H
+#ifndef RAINBOW_H
+# define RAINBOW_H
 
 # include "solid_color.h"
 
-typedef struct	s_checker
-{
-	t_texture	*odd;
-	t_texture	*even;
-	double		size;
-}				t_checker;
-
-t_vector3		checker_value(void *obj, t_result *result);
-void			checker_free(void *obj);
-t_texture		*checker_alloc(t_vector3 c1, t_vector3 c2, double size);
+t_vector3		rainbow_value(void *obj, t_result *result);
+void			rainbow_free(void *obj);
+t_texture		*rainbow_alloc(void);
 
 #endif
