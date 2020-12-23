@@ -67,7 +67,9 @@ SRCSB=	vector3_util.c \
 		cube.c \
 		pyramid.c \
 		disk.c \
-		cylinder_bonus.c 
+		cylinder_bonus.c \
+		cone.c \
+		cone2.c 
 
 OBJS=${SRCS:.c=.o}
 OBJSB=${SRCSB:.c=.o}
@@ -77,8 +79,8 @@ $(NAME):
 	$(MAKE) -C ./libft bonus
 	$(MAKE) -C ./minilibx_mms
 	cp $(LIBFT) _libft.a
-	cp $(MINILIBX) _libmlx.dylib
-	$(CC) $(FLAG) -I. -I./libft/. _libft.a _libmlx.dylib $(OBJS) main.c  -o $(NAME)
+	cp $(MINILIBX) libmlx.dylib
+	$(CC) $(FLAG) -I. -I./libft/. _libft.a libmlx.dylib $(OBJS) main.c  -o $(NAME)
 
 all: $(NAME)
 bonus:
@@ -86,8 +88,8 @@ bonus:
 	$(MAKE) -C ./libft bonus
 	$(MAKE) -C ./minilibx_mms
 	cp $(LIBFT) _libft.a
-	cp $(MINILIBX) _libmlx.dylib
-	$(CC) $(FLAG) -I. -I./libft/. _libft.a _libmlx.dylib $(OBJSB) main.c  -o $(NAME)
+	cp $(MINILIBX) libmlx.dylib
+	$(CC) $(FLAG) -I. -I./libft/. _libft.a libmlx.dylib $(OBJSB) main.c  -o $(NAME)
 clean:
 	$(MAKE) -C ./libft clean
 	rm -f $(OBJS)

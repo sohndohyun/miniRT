@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:23:48 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/23 01:54:24 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/24 01:25:36 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 #include "cube.h"
 #include "pyramid.h"
 #include "disk.h"
+#include "cone.h"
 
 #define READ_MAX 2048
 
@@ -81,6 +82,10 @@ static void			readline2(
 	else if (ft_strncmp(line[0], "dk", linelen) == 0 && split_no > 4)
 		scene_add(scene, disk_alloc(atov(line[1]), atov(line[2]),
 			ft_atod(line[3]), pmat(line + 4, split_no - 4)));
+	else if (ft_strncmp(line[0], "co", linelen) == 0 && split_no > 5)
+		scene_add(scene, cone_alloc(ray_init(atov(line[1]),
+			atov(line[2])), ft_atod(line[3]), ft_atod(line[4]),
+			pmat(line + 5, split_no - 5)));
 	else
 		exit_program();
 }
