@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readrt.h                                           :+:      :+:    :+:   */
+/*   skybox.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/12 02:58:14 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/25 02:38:01 by dsohn            ###   ########.fr       */
+/*   Created: 2020/12/25 14:28:07 by dsohn             #+#    #+#             */
+/*   Updated: 2020/12/25 21:11:33 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READRT_H
-# define READRT_H
+#ifndef SKYBOX_H
+# define SKYBOX_H
 
-# include "scene.h"
+# include "rimage.h"
+# include "ray.h"
 
-int	readrt(t_scene *scene, char *file, void *mlx);
+typedef struct	s_skybox
+{
+	t_rimage	img[6];
+}				t_skybox;
+
+void			skybox_init(t_skybox *box, char **line, void *mlx);
+t_vector3		skybox_background(t_skybox *box, t_ray r);
 
 #endif

@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readrt.h                                           :+:      :+:    :+:   */
+/*   rimage.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/12 02:58:14 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/25 02:38:01 by dsohn            ###   ########.fr       */
+/*   Created: 2020/12/24 23:12:14 by dsohn             #+#    #+#             */
+/*   Updated: 2020/12/25 02:49:57 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READRT_H
-# define READRT_H
+#ifndef RIMAGE_H
+# define RIMAGE_H
 
-# include "scene.h"
+# include "vector3.h"
 
-int	readrt(t_scene *scene, char *file, void *mlx);
+typedef struct	s_rimage
+{
+	int			width;
+	int			height;
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			line;
+	int			endian;
+}				t_rimage;
+
+t_vector3		rimage_color(t_rimage *img, double u, double v);
+void			rimage_init(t_rimage *img, void *mlx, char *file_name);
 
 #endif

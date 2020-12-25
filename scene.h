@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 01:15:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/19 18:24:29 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/25 19:48:38 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "minirt.h"
 # include "hittable.h"
 # include "camera.h"
+# include "skybox.h"
 
 typedef struct	s_scene
 {
@@ -23,11 +24,14 @@ typedef struct	s_scene
 	int			screen_height;
 	int			sample_per_pixel;
 	int			max_depth;
+	int			sepia_filter;
+	int			isbox;
 	t_list		*hittable_lst;
 	t_list		*camera_lst;
 	int			camera_no;
 	t_camera	*cam;
 	t_vector3	background;
+	t_skybox	skybox;
 }				t_scene;
 
 typedef struct	s_mlx {
@@ -48,7 +52,7 @@ typedef struct	s_param
 	int			cnt;
 }				t_param;
 
-void			scene_init(t_scene *scene, \
+void			scene_init(t_mlx *scene, \
 			int sample_per_pixel, int max_depth, char *str);
 t_result		scene_hit(t_scene *scene, t_ray r, double t_min, double t_max);
 void			scene_add(t_scene *scene, t_hittable *object);
@@ -61,5 +65,6 @@ void			scene_setamblight(t_scene *scene, \
 void			scene_setcamera(t_scene *scene, \
 			t_vector3 pos, t_vector3 face, double fov);
 void			export_bmp(char *filename, t_mlx *mlx);
+t_vector3		scene_background(t_scene *scene, t_ray r);
 
 #endif

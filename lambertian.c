@@ -6,13 +6,12 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 21:56:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/21 18:19:14 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/24 17:20:50 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lambertian.h"
 #include "hittable.h"
-#include <stdio.h>
 
 t_ray			lambertian_scatter(
 	void *obj, t_ray rin, t_result *result, t_vector3 *color)

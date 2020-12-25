@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 02:58:17 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/21 13:35:53 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/26 00:10:29 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #include "square.h"
 #include "cylinder.h"
 
-#define READ_MAX 2048
+#define READ_MAX 4096
 
 void		error_end(void)
 {
@@ -38,10 +38,7 @@ void		error_end(void)
 static void	add_object_to_scene(
 	t_scene *scene, char **line, int linelen, int split_no)
 {
-	if (ft_strncmp(line[0], "l", linelen) == 0 && split_no > 3)
-		scene_add(scene, sphere_alloc(atov(line[1]), ft_atod(line[2]) * 2,
-			dulight_alloc(solid_color_alloc(atocolor(line[3])))));
-	else if (ft_strncmp(line[0], "sp", linelen) == 0 && split_no > 3)
+	if (ft_strncmp(line[0], "sp", linelen) == 0 && split_no > 3)
 		scene_add(scene, sphere_alloc(atov(line[1]), ft_atod(line[2]),
 			lambertian_alloc(solid_color_alloc(atocolor(line[3])))));
 	else if (ft_strncmp(line[0], "pl", linelen) == 0 && split_no > 3)
@@ -76,6 +73,9 @@ static void	readline(t_scene *scene, char **line)
 		scene_setamblight(scene, ft_atod(line[1]), atocolor(line[2]));
 	else if (ft_strncmp(line[0], "c", i) == 0 && j > 3)
 		scene_setcamera(scene, atov(line[1]), atov(line[2]), ft_atod(line[3]));
+	else if (ft_strncmp(line[0], "l", i) == 0 && j > 3)
+		scene_add(scene, sphere_alloc(atov(line[1]), ft_atod(line[2]) * 3,
+		dulight_alloc(solid_color_alloc(vector3_mult(atocolor(line[3]), 4)))));
 	else
 		add_object_to_scene(scene, line, i, j);
 	i = 0;
@@ -84,13 +84,15 @@ static void	readline(t_scene *scene, char **line)
 	free(line);
 }
 
-int			readrt(t_scene *scene, char *file)
+int			readrt(t_scene *scene, char *file, void *mlx)
 {
 	int		fd;
 	char	buf[READ_MAX];
 	char	**lines;
 	int		i;
 
+	if (mlx == NULL)
+		return (0);
 	if ((fd = open(file, O_RDONLY)) <= 0)
 		return (0);
 	read(fd, buf, READ_MAX);

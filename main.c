@@ -6,27 +6,36 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 13:46:18 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/24 04:21:10 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/26 01:35:49 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readrt.h"
+#include <stdio.h>
 
-#define SAMPLE_PER_PIXEL 256
+#define SAMPLE_PER_PIXEL 50
 #define MAX_DEPTH 32
 
 int		key_hook(int key, void *param)
 {
 	t_mlx	*mlx;
-	t_list	*lst;
 
 	mlx = param;
 	if (key == 53 && param)
 		exit(0);
-	else if (key == 48)
+	else if (key == 0 || key == 1 || key == 2 || key == 13 || key == 48)
 	{
-		lst = mlx->scene->camera_lst;
-		mlx->scene->camera_no = (mlx->scene->camera_no + 1) % ft_lstsize(lst);
+		if (key == 0)
+			mlx->scene->cam->origin.x -= 1;
+		else if (key == 1)
+			mlx->scene->cam->origin.y -= 1;
+		else if (key == 2)
+			mlx->scene->cam->origin.x += 1;
+		else if (key == 13)
+			mlx->scene->cam->origin.y += 1;
+		else if (key == 48)
+			mlx->scene->camera_no = (mlx->scene->camera_no + 1) %
+				ft_lstsize(mlx->scene->camera_lst);
 		scene_render(mlx);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	}
@@ -59,8 +68,8 @@ int		main(int argc, char **argv)
 	if (argc == 1 || argc > 3)
 		return (0);
 	mlx.scene = &scene;
-	scene_init(&scene, SAMPLE_PER_PIXEL, MAX_DEPTH, argv[1]);
 	mlx.mlx = mlx_init();
+	scene_init(&mlx, SAMPLE_PER_PIXEL, MAX_DEPTH, argv[1]);
 	clampscreensize(&mlx);
 	mlx.win = mlx_new_window(
 		mlx.mlx, scene.screen_width, scene.screen_height, "miniRT");

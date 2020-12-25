@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readrt.h                                           :+:      :+:    :+:   */
+/*   itexture.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/12 02:58:14 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/25 02:38:01 by dsohn            ###   ########.fr       */
+/*   Created: 2020/12/25 02:25:36 by dsohn             #+#    #+#             */
+/*   Updated: 2020/12/26 00:52:33 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READRT_H
-# define READRT_H
+#ifndef ITEXTURE_H
+# define ITEXTURE_H
 
-# include "scene.h"
+# include "texture.h"
+# include "rimage.h"
 
-int	readrt(t_scene *scene, char *file, void *mlx);
+typedef struct	s_itexture
+{
+	t_rimage	image;
+}				t_itexture;
+
+t_texture		*itexture_alloc(char *filename, void *mlx);
+t_vector3		itexture_value(void *obj, t_result *result);
+void			itexture_free(void *obj);
 
 #endif

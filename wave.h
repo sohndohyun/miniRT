@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readrt.h                                           :+:      :+:    :+:   */
+/*   wave.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/12 02:58:14 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/25 02:38:01 by dsohn            ###   ########.fr       */
+/*   Created: 2020/12/24 16:30:13 by dsohn             #+#    #+#             */
+/*   Updated: 2020/12/24 17:23:00 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READRT_H
-# define READRT_H
+#ifndef WAVE_H
+# define WAVE_H
 
-# include "scene.h"
+# include "lambertian.h"
 
-int	readrt(t_scene *scene, char *file, void *mlx);
+t_material		*wave_alloc(t_texture *albedo);
+t_ray			wave_scatter(void *obj, t_ray rin,
+	t_result *result, t_vector3 *color);
 
 #endif

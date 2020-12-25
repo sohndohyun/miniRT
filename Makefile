@@ -31,7 +31,9 @@ SRCS=	vector3_util.c \
 		square.c \
 		cylinder.c \
 		cylinder2.c \
-		readrt.c
+		readrt.c \
+		skybox.c \
+		rimage.c
 
 SRCSB=	vector3_util.c \
 		vector3_util1.c \
@@ -69,20 +71,23 @@ SRCSB=	vector3_util.c \
 		disk.c \
 		cylinder_bonus.c \
 		cone.c \
-		cone2.c 
+		cone2.c \
+		wave.c \
+		rimage.c \
+		itexture.c \
+		skybox.c
 
 OBJS=${SRCS:.c=.o}
 OBJSB=${SRCSB:.c=.o}
 
-$(NAME):
+all:
 	$(CC) $(FLAG) -I. -I./libft/. -c $(SRCS)
 	$(MAKE) -C ./libft bonus
 	$(MAKE) -C ./minilibx_mms
 	cp $(LIBFT) _libft.a
 	cp $(MINILIBX) libmlx.dylib
 	$(CC) $(FLAG) -I. -I./libft/. _libft.a libmlx.dylib $(OBJS) main.c  -o $(NAME)
-
-all: $(NAME)
+$(NAME): all
 bonus:
 	$(CC) $(FLAG) -I. -I./libft/. -c $(SRCSB)
 	$(MAKE) -C ./libft bonus

@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:23:48 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/24 01:25:36 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/26 00:34:05 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,17 @@
 #include "pyramid.h"
 #include "disk.h"
 #include "cone.h"
+#include "wave.h"
+#include "itexture.h"
 
-#define READ_MAX 2048
+#define READ_MAX 4096
 
-static void			exit_program(void)
+void *g_mlx = NULL;
+
+static void			exit_program(char *title)
 {
-	write(1, "Error\n", 6);
+	write(1, title, ft_strlen(title));
+	write(1, " Error\n", 7);
 	exit(0);
 }
 
@@ -56,7 +61,11 @@ static t_material	*pmat(char **line, int j)
 		return (dielectric_alloc(ft_atod(line[1])));
 	else if (ft_strncmp(line[0], "rainbow", i) == 0 && j > 0)
 		return (lambertian_alloc(rainbow_alloc()));
-	exit_program();
+	else if (ft_strncmp(line[0], "wave", i) == 0 && j > 1)
+		return (wave_alloc(solid_color_alloc(atocolor(line[1]))));
+	else if (ft_strncmp(line[0], "texture", i) == 0 && j > 1)
+		return (lambertian_alloc((itexture_alloc(line[1], g_mlx))));
+	exit_program(line[0]);
 	return (NULL);
 }
 
@@ -87,16 +96,11 @@ static void			readline2(
 			atov(line[2])), ft_atod(line[3]), ft_atod(line[4]),
 			pmat(line + 5, split_no - 5)));
 	else
-		exit_program();
+		exit_program(line[0]);
 }
 
-static void			readline(t_scene *scene, char **line)
+static void			readline(t_scene *scene, char **line, int i, int j)
 {
-	int i;
-	int j;
-
-	i = ft_strlen(line[0]);
-	j = ft_split_cnt(line);
 	if (ft_strncmp(line[0], "R", i) == 0 && j > 2)
 		scene_setsize(scene, ft_atoi(line[1]), ft_atoi(line[2]));
 	else if (ft_strncmp(line[0], "A", i) == 0 && j > 2)
@@ -105,24 +109,32 @@ static void			readline(t_scene *scene, char **line)
 		scene_setcamera(scene, atov(line[1]), atov(line[2]), ft_atod(line[3]));
 	else if (ft_strncmp(line[0], "l", i) == 0 && j > 3)
 		scene_add(scene, sphere_alloc(atov(line[1]), ft_atod(line[2]) * 3,
-			dulight_alloc(solid_color_alloc(atocolor(line[3])))));
+		dulight_alloc(solid_color_alloc(vector3_mult(atocolor(line[3]), 4)))));
 	else if (ft_strncmp(line[0], "sp", i) == 0 && j > 3)
 		scene_add(scene, sphere_alloc(atov(line[1]), ft_atod(line[2]),
 			pmat(line + 3, j - 3)));
 	else if (ft_strncmp(line[0], "pl", i) == 0 && j > 3)
 		scene_add(scene, plane_alloc(atov(line[1]), atov(line[2]),
 			pmat(line + 3, j - 3)));
+	else if (ft_strncmp(line[0], "ft_sepia", i) == 0)
+		scene->sepia_filter = 1;
+	else if (ft_strncmp(line[0], "skybox", i) == 0 && j > 6)
+	{
+		skybox_init(&scene->skybox, line + 1, g_mlx);
+		scene->isbox = 1;
+	}
 	else
 		readline2(scene, line, i, j);
 }
 
-int					readrt(t_scene *scene, char *file)
+int					readrt(t_scene *scene, char *file, void *mlx)
 {
 	int		i[3];
 	char	buf[READ_MAX];
 	char	**lines;
 	char	**temp;
 
+	g_mlx = mlx;
 	if ((i[0] = open(file, O_RDONLY)) <= 0)
 		return (0);
 	read(i[0], buf, READ_MAX);
@@ -131,7 +143,7 @@ int					readrt(t_scene *scene, char *file)
 	while (lines[i[1]])
 	{
 		temp = ft_split(lines[i[1]], ' ');
-		readline(scene, temp);
+		readline(scene, temp, ft_strlen(temp[0]), ft_split_cnt(temp));
 		i[2] = 0;
 		while (temp[i[2]])
 			free(temp[i[2]++]);

@@ -1,10 +1,10 @@
-R 256 128
-A 1.0 150,70,250
+R 253 130
+skybox skybox_UP.xpm skybox_DOWN.xpm skybox_FRONT.xpm skybox_BACK.xpm skybox_RIGHT.xpm skybox_LEFT.xpm 
+A 1.0 50,70,250
+c 0,-4,8 0,1,-8 40
 c 0,6,8 0,-5,-8 40
 c 0,6,-8 0,-5,8 40
-c 18,1,0 -1,0,0 20
-c -18,1,0 1,0,0 20
-l -5,10,0 1.0 1200,1200,1200
+l -5,10,0 1.0 255,255,255
 cb 4,2,0 2 checker 50,50,50 150,150,150 4
-cy -4,1,0 0,1,1 1 2 checker 50,50,50 150,150,150 4
-co 0,3,0 0,-0.7,1 40 3 checker 50,50,50 150,150,150 4
+sp -4,1,0 2 texture sample_texture.xpm
+py 0,1,0 1 2 checker 50,50,50 150,150,150 4
