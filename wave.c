@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 15:48:47 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/24 18:33:38 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/26 02:53:48 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 t_ray			wave_scatter(void *obj, t_ray rin,
 	t_result *rst, t_vector3 *color)
 {
-	double temp;
+	t_vector3	mynorm;
 
-	temp = sin(rst->u * 14 * PI);
-	rst->norm = vector3_norm(vector3_add(rst->norm,
-		vector3_init(0, temp, 0)));
+	mynorm = vector3_norm(vector3_init(0, sin(rst->u * 14 * PI), -1));
+	rst->norm = vector3_norm(vector3_add(rst->norm, mynorm));
 	return (lambertian_scatter(obj, rin, rst, color));
 }
 

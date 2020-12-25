@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 21:56:06 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/24 17:20:50 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/26 02:24:08 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void			lambertian_free(void *lam)
 	t_lambertian *temp;
 
 	temp = lam;
-	temp->albedo->free(temp->albedo);
+	temp->albedo->free(temp->albedo->obj);
+	free(temp->albedo);
 	free(temp);
 }

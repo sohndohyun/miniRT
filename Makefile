@@ -75,7 +75,8 @@ SRCSB=	vector3_util.c \
 		wave.c \
 		rimage.c \
 		itexture.c \
-		skybox.c
+		skybox.c \
+		bumpmap.c 
 
 OBJS=${SRCS:.c=.o}
 OBJSB=${SRCSB:.c=.o}

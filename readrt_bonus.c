@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:23:48 by dsohn             #+#    #+#             */
-/*   Updated: 2020/12/26 00:34:05 by dsohn            ###   ########.fr       */
+/*   Updated: 2020/12/26 02:46:16 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 #include "cone.h"
 #include "wave.h"
 #include "itexture.h"
+#include "bumpmap.h"
 
 #define READ_MAX 4096
 
@@ -65,6 +66,8 @@ static t_material	*pmat(char **line, int j)
 		return (wave_alloc(solid_color_alloc(atocolor(line[1]))));
 	else if (ft_strncmp(line[0], "texture", i) == 0 && j > 1)
 		return (lambertian_alloc((itexture_alloc(line[1], g_mlx))));
+	else if (ft_strncmp(line[0], "bumpmap", i) == 0 && j > 2)
+		return (bumpmap_alloc(line[1], atocolor(line[2]), g_mlx));
 	exit_program(line[0]);
 	return (NULL);
 }
